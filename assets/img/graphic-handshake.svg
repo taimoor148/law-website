@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="400" height="320">
+  <defs>
+    <linearGradient id="hs-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F4E3A6"/>
+      <stop offset="0.5" stop-color="#D9B24C"/>
+      <stop offset="1" stop-color="#8A6526"/>
+    </linearGradient>
+    <radialGradient id="hs-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#D9B24C" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#D9B24C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="200" cy="150" r="130" fill="url(#hs-glow)"/>
+  <ellipse cx="200" cy="270" rx="140" ry="14" fill="#0D0C0A" opacity="0.4"/>
+
+  <!-- Sleeves -->
+  <g fill="none" stroke="url(#hs-gold)" stroke-width="3.4" stroke-linecap="round">
+    <!-- Left sleeve -->
+    <path d="M96 160 Q120 158 138 150 L158 138 Q176 128 180 112 Q160 96 130 92 Q104 96 92 116 Z"/>
+    <path d="M96 160 Q120 158 138 150" stroke-opacity="0.5"/>
+    <!-- Right sleeve -->
+    <path d="M304 160 Q280 158 262 150 L242 138 Q224 128 220 112 Q240 96 270 92 Q296 96 308 116 Z"/>
+    <path d="M304 160 Q280 158 262 150" stroke-opacity="0.5"/>
+  </g>
+
+  <!-- Cuffs -->
+  <rect x="124" y="132" width="46" height="18" rx="5" fill="url(#hs-gold)" opacity="0.85"/>
+  <rect x="230" y="132" width="46" height="18" rx="5" fill="url(#hs-gold)" opacity="0.85"/>
+  <line x1="134" y1="141" x2="160" y2="141" stroke="#4A3A12" stroke-width="1.6" opacity="0.5"/>
+  <line x1="240" y1="141" x2="266" y2="141" stroke="#4A3A12" stroke-width="1.6" opacity="0.5"/>
+
+  <!-- Hands clasping -->
+  <g fill="url(#hs-gold)" opacity="0.95">
+    <!-- Left hand -->
+    <path d="M150 160 Q138 168 136 184 Q140 200 156 206 Q170 200 174 188 Q172 176 164 170 Z"/>
+    <!-- Right hand -->
+    <path d="M250 160 Q262 168 264 184 Q260 200 244 206 Q230 200 226 188 Q228 176 236 170 Z"/>
+    <!-- Fingers overlap -->
+    <path d="M150 172 Q158 168 168 174 Q174 184 170 194 Q160 200 152 194 Q146 186 150 172 Z" fill="#241C07" opacity="0.35"/>
+    <path d="M250 172 Q242 168 232 174 Q226 184 230 194 Q240 200 248 194 Q254 186 250 172 Z" fill="#241C07" opacity="0.35"/>
+  </g>
+
+  <!-- Gold ring on left hand -->
+  <ellipse cx="170" cy="188" rx="6" ry="9" fill="none" stroke="#FBF3D5" stroke-width="2" opacity="0.8" transform="rotate(14 170 188)"/>
+
+  <!-- Sparkles -->
+  <circle cx="104" cy="120" r="3" fill="#F4E3A6" opacity="0.8"/>
+  <circle cx="298" cy="118" r="2.4" fill="#E5C76E" opacity="0.7"/>
+  <circle cx="200" cy="92" r="2" fill="#F4E3A6" opacity="0.6"/>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="400" height="320">
+  <defs>
+    <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F4E3A6"/>
+      <stop offset="0.5" stop-color="#D9B24C"/>
+      <stop offset="1" stop-color="#8A6526"/>
+    </linearGradient>
+    <radialGradient id="g-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#D9B24C" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#D9B24C" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="g-handle" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7C5A1F"/>
+      <stop offset="0.5" stop-color="#E5C76E"/>
+      <stop offset="1" stop-color="#7C5A1F"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="200" cy="150" r="130" fill="url(#g-glow)"/>
+  <ellipse cx="200" cy="282" rx="130" ry="14" fill="#0D0C0A" opacity="0.4"/>
+
+  <!-- Mallet head -->
+  <rect x="70" y="150" width="150" height="56" rx="14" fill="url(#g-gold)"/>
+  <rect x="70" y="150" width="150" height="56" rx="14" fill="none" stroke="#4A3A12" stroke-width="2" opacity="0.4"/>
+  <!-- Head bevel + detail -->
+  <rect x="82" y="162" width="126" height="32" rx="8" fill="none" stroke="#FBF3D5" stroke-width="1.6" opacity="0.55"/>
+  <line x1="82" y1="178" x2="208" y2="178" stroke="#4A3A12" stroke-width="1.4" opacity="0.5"/>
+
+  <!-- Handle -->
+  <path d="M196 206 L216 278" stroke="url(#g-handle)" stroke-width="22" stroke-linecap="round"/>
+  <path d="M196 206 L216 278" stroke="#2A2410" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+
+  <!-- Sounding block -->
+  <path d="M176 288 H248 L258 302 H166 Z" fill="url(#g-gold)" opacity="0.9"/>
+  <path d="M176 288 H248 L258 302 H166 Z" fill="none" stroke="#4A3A12" stroke-width="1.6" opacity="0.4"/>
+  <ellipse cx="212" cy="288" rx="36" ry="6" fill="#241C07" opacity="0.35"/>
+
+  <!-- Impact streaks -->
+  <g stroke="#F4E3A6" stroke-width="2" opacity="0.55" stroke-linecap="round">
+    <path d="M112 132 L104 112"/>
+    <path d="M132 124 L132 100"/>
+    <path d="M150 128 L158 106"/>
+  </g>
+</svg>

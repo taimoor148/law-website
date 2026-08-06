@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 560" width="520" height="560">
+  <defs>
+    <linearGradient id="h-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F4E3A6"/>
+      <stop offset="0.5" stop-color="#D9B24C"/>
+      <stop offset="1" stop-color="#8A6526"/>
+    </linearGradient>
+    <linearGradient id="h-gold-soft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBF3D5"/>
+      <stop offset="0.6" stop-color="#C9A24A"/>
+      <stop offset="1" stop-color="#7C5A1F"/>
+    </linearGradient>
+    <linearGradient id="h-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4A453B"/>
+      <stop offset="1" stop-color="#1C1A15"/>
+    </linearGradient>
+    <radialGradient id="h-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#D9B24C" stop-opacity="0.45"/>
+      <stop offset="0.55" stop-color="#C19A3C" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#C19A3C" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="h-blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="26"/>
+    </filter>
+    <filter id="h-glow-f" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="h-pan" cx="0.5" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#F2D98C"/>
+      <stop offset="0.7" stop-color="#D9B24C"/>
+      <stop offset="1" stop-color="#8A6526"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Ground glow -->
+  <ellipse cx="260" cy="518" rx="210" ry="26" fill="url(#h-glow)" filter="url(#h-blur)"/>
+
+  <!-- Orbit rings -->
+  <g opacity="0.5">
+    <ellipse cx="260" cy="300" rx="236" ry="92" fill="none" stroke="url(#h-gold)" stroke-width="1.2" transform="rotate(-14 260 300)"/>
+    <ellipse cx="260" cy="300" rx="252" ry="104" fill="none" stroke="url(#h-gold)" stroke-width="0.8" transform="rotate(-14 260 300)" opacity="0.55"/>
+  </g>
+
+  <!-- Floating sparkles -->
+  <circle cx="90" cy="120" r="3" fill="#F4E3A6" opacity="0.9"/>
+  <circle cx="452" cy="170" r="2.4" fill="#E5C76E" opacity="0.8"/>
+  <circle cx="380" cy="88" r="2" fill="#F4E3A6" opacity="0.7"/>
+  <circle cx="70" cy="360" r="2.2" fill="#E5C76E" opacity="0.7"/>
+  <circle cx="470" cy="420" r="2.6" fill="#F4E3A6" opacity="0.75"/>
+
+  <!-- Central scales -->
+  <g filter="url(#h-glow-f)">
+    <!-- Pole -->
+    <line x1="260" y1="96" x2="260" y2="438" stroke="url(#h-gold)" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="260" cy="96" r="24" fill="url(#h-gold)"/>
+    <circle cx="260" cy="96" r="24" fill="none" stroke="#2A2410" stroke-width="2" opacity="0.35"/>
+    <circle cx="260" cy="96" r="9" fill="#241C07" opacity="0.5"/>
+    <!-- Finial flame -->
+    <path d="M260 66 Q248 78 260 88 Q272 78 260 66z" fill="url(#h-gold-soft)" filter="url(#h-glow-f)"/>
+
+    <!-- Beam -->
+    <line x1="104" y1="176" x2="416" y2="176" stroke="url(#h-gold)" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="260" cy="176" r="9" fill="url(#h-gold)"/>
+    <circle cx="260" cy="176" r="4" fill="#241C07" opacity="0.45"/>
+
+    <!-- Hanger lines -->
+    <line x1="128" y1="176" x2="112" y2="272" stroke="url(#h-gold)" stroke-width="4.5" stroke-linecap="round"/>
+    <line x1="392" y1="176" x2="408" y2="272" stroke="url(#h-gold)" stroke-width="4.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Left pan assembly -->
+  <g>
+    <path d="M108 272 H44 L84 318 Z" fill="none" stroke="url(#h-gold)" stroke-width="4.5" stroke-linejoin="round"/>
+    <ellipse cx="78" cy="318" rx="48" ry="14" fill="url(#h-pan)"/>
+    <ellipse cx="78" cy="318" rx="48" ry="14" fill="none" stroke="#4A3A12" stroke-width="2.5" opacity="0.4"/>
+    <ellipse cx="78" cy="318" rx="28" ry="8" fill="none" stroke="#FBF3D5" stroke-width="1.5" opacity="0.5"/>
+    <ellipse cx="78" cy="330" rx="50" ry="12" fill="url(#h-glow)" filter="url(#h-blur)"/>
+    <!-- Small column on pan -->
+    <rect x="62" y="292" width="32" height="22" rx="3" fill="url(#h-gold)" opacity="0.85"/>
+  </g>
+
+  <!-- Right pan assembly -->
+  <g>
+    <path d="M412 272 H476 L436 318 Z" fill="none" stroke="url(#h-gold)" stroke-width="4.5" stroke-linejoin="round"/>
+    <ellipse cx="442" cy="318" rx="48" ry="14" fill="url(#h-pan)"/>
+    <ellipse cx="442" cy="318" rx="48" ry="14" fill="none" stroke="#4A3A12" stroke-width="2.5" opacity="0.4"/>
+    <ellipse cx="442" cy="318" rx="28" ry="8" fill="none" stroke="#FBF3D5" stroke-width="1.5" opacity="0.5"/>
+    <ellipse cx="442" cy="330" rx="50" ry="12" fill="url(#h-glow)" filter="url(#h-blur)"/>
+    <!-- Scroll on pan -->
+    <rect x="426" y="292" width="32" height="22" rx="3" fill="url(#h-gold)" opacity="0.85"/>
+  </g>
+
+  <!-- Base / step -->
+  <g>
+    <rect x="196" y="438" width="128" height="16" rx="8" fill="url(#h-gold)"/>
+    <rect x="176" y="454" width="168" height="14" rx="7" fill="url(#h-gold)" opacity="0.75"/>
+    <ellipse cx="260" cy="480" rx="150" ry="14" fill="#1C1A15" opacity="0.35"/>
+  </g>
+
+  <!-- Laurel accents -->
+  <g fill="none" stroke="url(#h-gold)" stroke-width="3" stroke-linecap="round" opacity="0.8">
+    <path d="M196 110 Q176 108 168 92 Q166 76 184 70 Q196 76 194 92 Q190 104 196 110"/>
+    <path d="M204 104 Q190 100 186 88 Q184 74 196 68"/>
+    <path d="M324 110 Q344 108 352 92 Q354 76 336 70 Q324 76 326 92 Q330 104 324 110"/>
+    <path d="M316 104 Q330 100 334 88 Q336 74 324 68"/>
+  </g>
+</svg>

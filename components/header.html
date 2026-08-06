@@ -1,0 +1,57 @@
+<!-- HEADER — inject at top of every page after <body> -->
+<header class="nav" role="banner">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo" aria-label="Sterling &amp; Vale — Home">
+      <span class="logo-mark">
+        <img src="assets/img/logo-mark.svg" alt="" width="30" height="30">
+      </span>
+      <span class="logo-text">
+        <span class="logo-name">Sterling &amp; Vale</span>
+        <span class="logo-sub">Attorneys at Law</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="about.html">About</a>
+      <a class="nav-link" href="practice-areas.html">Practice Areas</a>
+      <a class="nav-link" href="lawyers.html">Our Lawyers</a>
+      <a class="nav-link" href="case-studies.html">Case Studies</a>
+      <a class="nav-link" href="blog.html">Blog</a>
+      <a class="nav-link" href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme" aria-pressed="false">
+        <svg class="icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        <svg class="icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+      <a href="contact.html" class="btn btn-gold btn-sm nav-cta magnetic">
+        <span>Consultation</span>
+        <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+      <button class="nav-burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <nav class="mobile-menu-inner" aria-label="Mobile">
+    <a class="mobile-link" href="index.html"><span class="m-index">01</span> Home</a>
+    <a class="mobile-link" href="about.html"><span class="m-index">02</span> About</a>
+    <a class="mobile-link" href="practice-areas.html"><span class="m-index">03</span> Practice Areas</a>
+    <a class="mobile-link" href="lawyers.html"><span class="m-index">04</span> Our Lawyers</a>
+    <a class="mobile-link" href="case-studies.html"><span class="m-index">05</span> Case Studies</a>
+    <a class="mobile-link" href="blog.html"><span class="m-index">06</span> Blog</a>
+    <a class="mobile-link" href="contact.html"><span class="m-index">07</span> Contact</a>
+  </nav>
+  <div class="mobile-menu-cta">
+    <a href="contact.html" class="btn btn-gold magnetic">
+      <span>Book a Consultation</span>
+      <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+    </a>
+  </div>
+</div>
