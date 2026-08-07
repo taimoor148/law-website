@@ -1,5 +1,5 @@
 /* ============================================================
-   STERLING & VALE — HOME PAGE JAVASCRIPT
+   JUSTICE DESK — HOME PAGE JAVASCRIPT
    Handles: navbar scroll, mobile menu, counter animations,
    reveal animations, FAQ accordion, back-to-top (theme is handled by main.js)
    ============================================================ */
@@ -38,6 +38,41 @@
       });
     });
   }
+
+  /* ── Smooth scroll for one-page anchors ── */
+  const NAV_HEIGHT = 76;
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const id = link.getAttribute('href');
+      if (!id || id.length < 2) return;
+      const target = document.getElementById(id.slice(1));
+      if (!target) return;
+      e.preventDefault();
+      const y = target.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
+      window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' });
+    });
+  });
+
+  /* ── Active section highlighting (scroll spy) ── */
+  const spyLinks = document.querySelectorAll('.sv-nav-link[data-nav]');
+  const spyIds = Array.from(spyLinks).map(l => l.getAttribute('data-nav'));
+  const spySections = spyIds
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  const setActive = (id) => {
+    spyLinks.forEach(l => {
+      l.classList.toggle('sv-nav-link--active', l.getAttribute('data-nav') === id);
+    });
+  };
+
+  const spyObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  spySections.forEach(s => spyObs.observe(s));
 
   /* ── Intersection Observer for reveal animations ── */
   const observerOpts = { threshold: 0.15, rootMargin: '0px 0px -60px 0px' };

@@ -1,0 +1,218 @@
+/* ============================================================
+   STEP 5 — LUXURY UI SYSTEM
+   Glassmorphism · Unified buttons · Theme transition ·
+   Consistent radius / shadow / spacing across BOTH component
+   systems (legacy `.btn/.card/.nav` AND home `.sv-*`).
+   Loaded last so it refines — never restructures — the layout.
+   ============================================================ */
+
+:root {
+  /* One button language */
+  --s5-btn-h: 48px;      /* standard */
+  --s5-btn-h-sm: 38px;   /* small    */
+  --s5-btn-h-lg: 58px;   /* large    */
+  --s5-radius-btn: var(--r-md);  /* 16px — refined, not full-pill */
+}
+
+/* ----------------------------------------------------------
+   1. BUTTON SYSTEM
+   Every button across the site shares identical height and
+   radius. Height enforced via min-height so it holds even
+   with variable content.
+   ---------------------------------------------------------- */
+.btn,
+.btn-lg,
+.btn-sm,
+.sv-btn-primary,
+.sv-btn-outline,
+.sv-btn-ghost,
+.sv-btn-glass,
+.sv-btn-sm,
+.sv-btn-lg,
+.sv-cta-btn,
+.sv-cta-btn--lg {
+  border-radius: var(--s5-radius-btn);
+}
+
+.btn,
+.btn-lg,
+.sv-btn-primary,
+.sv-btn-outline,
+.sv-btn-ghost,
+.sv-btn-glass,
+.sv-cta-btn {
+  min-height: var(--s5-btn-h);
+  line-height: 1.1;
+}
+.btn-sm,
+.sv-btn-sm {
+  min-height: var(--s5-btn-h-sm);
+}
+.btn-lg,
+.sv-btn-lg,
+.sv-cta-btn--lg {
+  min-height: var(--s5-btn-h-lg);
+}
+
+/* ----------------------------------------------------------
+   2. GLASS SYSTEM — one premium glass recipe reused everywhere
+   ---------------------------------------------------------- */
+.glass,
+.glass-card,
+.form-input,
+.form-textarea,
+.sv-float-card,
+.card,
+.sv-pa-card,
+.sv-why-card,
+.sv-case-card,
+.sv-testi-card,
+.sv-blog-card,
+.sv-team-card,
+.sv-award-item,
+.contact-row,
+.icon-chip {
+  border-radius: var(--r-lg);
+}
+
+.card,
+.glass-card,
+.sv-why-card,
+.sv-case-card,
+.sv-blog-card,
+.sv-team-card,
+.sv-award-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-inset), 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* Glassmorphism applied to media/card surfaces uniformly */
+.glass-card,
+.sv-pa-card,
+.sv-why-card,
+.sv-blog-card,
+.sv-case-card,
+.sv-team-card,
+.sv-testi-card,
+.contact-row {
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+/* ----------------------------------------------------------
+   3. GRID SPACING — one quiet horizontal rhythm
+   ---------------------------------------------------------- */
+.sv-split,
+.grid-2,
+.grid-3,
+.grid-4,
+.sv-practice-grid,
+.sv-why-grid,
+.sv-cases-grid,
+.sv-blog-grid,
+.sv-testi-grid,
+.sv-team-grid {
+  gap: clamp(20px, 2.6vw, 36px);
+}
+
+/* ----------------------------------------------------------
+   4. THEME TRANSITION — smooth, no flash
+   JS adds .theme-switching to <html> for the duration of a
+   switch only, so sub-elements cross-fade without paying a
+   permanent transition cost (performance friendly).
+   ---------------------------------------------------------- */
+html.theme-switching body,
+html.theme-switching body::before,
+html.theme-switching .glass,
+html.theme-switching .glass-card,
+html.theme-switching .card,
+html.theme-switching .sv-pa-card,
+html.theme-switching .sv-why-card,
+html.theme-switching .sv-case-card,
+html.theme-switching .sv-blog-card,
+html.theme-switching .sv-team-card,
+html.theme-switching .sv-testi-card,
+html.theme-switching .sv-award-item,
+html.theme-switching .contact-row,
+html.theme-switching .sv-nav,
+html.theme-switching .nav,
+html.theme-switching .footer,
+html.theme-switching .form-input,
+html.theme-switching .form-textarea,
+html.theme-switching .sv-section,
+html.theme-switching .section,
+html.theme-switching .page-hero {
+  transition: background-color 700ms var(--ease-in-out),
+              color 700ms var(--ease-in-out),
+              border-color 700ms var(--ease-in-out),
+              box-shadow 700ms var(--ease-in-out),
+              background 700ms var(--ease-in-out);
+}
+
+/* ----------------------------------------------------------
+   5. UNIFIED ICON FAMILY
+   One stroke weight across all interactive UI icons.
+   ---------------------------------------------------------- */
+.theme-toggle svg,
+.sv-theme-btn svg,
+.nav-cta svg,
+.btn svg,
+.sv-btn-primary svg,
+.sv-btn-outline svg,
+.sv-btn-ghost svg,
+.sv-btn-glass svg,
+.sv-cta-btn svg,
+.sv-link-arrow svg {
+  stroke-width: 1.7;
+}
+
+/* ----------------------------------------------------------
+   6. FOCUS STATES — visibility + gold glow everywhere
+   ---------------------------------------------------------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--gold-400);
+  outline-offset: 3px;
+  border-radius: var(--r-md);
+}
+
+/* Form inputs — premium gold focus glow (aligned across both systems) */
+.form-input:focus,
+.form-textarea:focus,
+select.form-input:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 0 4px rgba(217, 178, 76, 0.14), 0 8px 26px rgba(201, 162, 74, 0.12);
+}
+
+/* ----------------------------------------------------------
+   7. CONSISTENT SECTION HEADINGS across both systems
+   ---------------------------------------------------------- */
+.sv-section-head,
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sv-section-head.center,
+.section-head.center {
+  align-items: center;
+  text-align: center;
+}
+/* Home uses a horizontal [line | icon | title | line] row —
+   keep that intact, only normalize inner-page block heads. */
+.sv-section-head {
+  flex-direction: row;
+  gap: 20px;
+}
+
+/* ----------------------------------------------------------
+   REDUCED MOTION — kill the new motion as well
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html.theme-switching * { transition-duration: 0.001ms !important; }
+}

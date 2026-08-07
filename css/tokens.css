@@ -1,5 +1,5 @@
 /* ============================================================
-   STERLING & VALE LLP — DESIGN TOKENS
+   JUSTICE DESK — DESIGN TOKENS
    "Midnight Counsel" — cinematic dark-first luxury
    Black · Champagne Gold · Glass · Aurora
    ============================================================ */
@@ -78,12 +78,12 @@
    ============================================================ */
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg:           #0B0A09;
-  --bg-elevated:  #13110E;
-  --bg-alt:       #0E0D0B;
-  --surface:      #16130F;
-  --surface-2:    #1C1813;
-  --surface-3:    #241F18;
+  --bg:           #0B0B0C;
+  --bg-elevated:  #131314;
+  --bg-alt:       #0E0E0F;
+  --surface:      #161617;
+  --surface-2:    #1C1C1D;
+  --surface-3:    #242426;
   --border:       rgba(244, 227, 166, 0.12);
   --border-strong: rgba(244, 227, 166, 0.24);
 
@@ -105,7 +105,7 @@
   --bg-aura-1: rgba(217,178,76,.09);
   --bg-aura-2: rgba(138,101,38,.05);
 
-  --navbar-bg: rgba(11, 10, 9, 0.62);
+  --navbar-bg: rgba(11, 11, 12, 0.62);
   --navbar-blur: 24px;
 }
 
@@ -114,12 +114,12 @@
    ============================================================ */
 [data-theme="light"] {
   color-scheme: light;
-  --bg:           #F5F2EA;
+  --bg:           #F7F7F5;
   --bg-elevated:  #FFFFFF;
-  --bg-alt:       #ECE7DB;
+  --bg-alt:       #EDEEE9;
   --surface:      #FFFFFF;
-  --surface-2:    #F7F4EC;
-  --surface-3:    #F0EBDF;
+  --surface-2:    #F7F7F4;
+  --surface-3:    #F1F1EC;
   --border:       rgba(90, 72, 40, 0.16);
   --border-strong: rgba(138, 101, 38, 0.35);
 
@@ -141,7 +141,7 @@
   --bg-aura-1: rgba(201,162,74,.14);
   --bg-aura-2: rgba(138,101,38,.08);
 
-  --navbar-bg: rgba(245, 242, 234, 0.7);
+  --navbar-bg: rgba(247, 247, 245, 0.7);
   --navbar-blur: 24px;
 }
 
@@ -150,28 +150,28 @@
    ============================================================ */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg: #0B0A09; --bg-elevated: #13110E; --bg-alt: #0E0D0B;
-    --surface: #16130F; --surface-2: #1C1813; --surface-3: #241F18;
+    --bg: #0B0B0C; --bg-elevated: #131314; --bg-alt: #0E0E0F;
+    --surface: #161617; --surface-2: #1C1C1D; --surface-3: #242426;
     --border: rgba(244, 227, 166, 0.12); --border-strong: rgba(244, 227, 166, 0.24);
     --text: #F5F3EE; --text-soft: #E6E1D4; --text-muted: #A8A293; --text-faint: #6E6758;
     --gold-text: var(--gold-300); --gold-ink: #241C07;
     --glass-bg: rgba(255,255,255,.045); --glass-bg-strong: rgba(18,16,12,.62);
     --glass-border: rgba(244, 227, 166, 0.16);
     --bg-aura-1: rgba(217,178,76,.09); --bg-aura-2: rgba(138,101,38,.05);
-    --navbar-bg: rgba(11,10,9,.62);
+    --navbar-bg: rgba(11,11,12,.62);
   }
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
-    --bg: #F5F2EA; --bg-elevated: #FFFFFF; --bg-alt: #ECE7DB;
-    --surface: #FFFFFF; --surface-2: #F7F4EC; --surface-3: #F0EBDF;
+    --bg: #F7F7F5; --bg-elevated: #FFFFFF; --bg-alt: #EDEEE9;
+    --surface: #FFFFFF; --surface-2: #F7F7F4; --surface-3: #F1F1EC;
     --border: rgba(90,72,40,.16); --border-strong: rgba(138,101,38,.35);
     --text: #161310; --text-soft: #3E3A30; --text-muted: #6E6655; --text-faint: #A49A82;
     --gold-text: var(--gold-600); --gold-ink: #FFF;
     --glass-bg: rgba(255,255,255,.55); --glass-bg-strong: rgba(255,255,255,.72);
     --glass-border: rgba(138,101,38,.22);
     --bg-aura-1: rgba(201,162,74,.14); --bg-aura-2: rgba(138,101,38,.08);
-    --navbar-bg: rgba(245,242,234,.7);
+    --navbar-bg: rgba(247,247,245,.7);
   }
 }
 

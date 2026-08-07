@@ -1,0 +1,271 @@
+/* ============================================================
+   STEP 4 — PREMIUM ANIMATIONS & INTERACTIONS
+   Awwwards-grade interaction layer. Pure polish: no layout,
+   no content, no structure changes. Loaded last.
+   ============================================================ */
+
+/* ---------- 1. Loader: gold progress line ---------- */
+:root { --load: 0; }
+.loader::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 13%;
+  transform: translateX(-50%);
+  width: min(280px, 62vw);
+  height: 2px;
+  border-radius: 2px;
+  background:
+    linear-gradient(90deg, #8A6526, #D9B24C 35%, #F4E3A6 50%, #D9B24C 65%, #8A6526) 0 0 / var(--load) 100% no-repeat,
+    rgba(244, 227, 166, 0.16);
+  box-shadow: 0 0 14px rgba(217, 178, 76, 0.35);
+  will-change: background-size;
+}
+
+/* ---------- 2. Reveal variety: blur + scale ---------- */
+[data-reveal="blur"] {
+  transform: translateY(24px);
+  filter: blur(10px);
+  opacity: 0;
+  transition:
+    opacity 1s var(--ease-out-quart),
+    transform 1s var(--ease-out-quart),
+    filter 1s var(--ease-out-quart);
+  transition-delay: var(--reveal-delay, 0s);
+}
+[data-reveal="blur"].is-revealed { opacity: 1; transform: none; filter: blur(0); }
+
+[data-reveal="scale"] {
+  transform: scale(0.86);
+  opacity: 0;
+  transition:
+    opacity 1s var(--ease-out-quart),
+    transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+[data-reveal="scale"].is-revealed { opacity: 1; transform: none; }
+
+/* Masked-line hero title: per-word + per-char cascade (JS-split) */
+.hero-line { display: inline-block; }
+.hero-word { display: inline-block; white-space: nowrap; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+.hero-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.7em);
+  transition: opacity 0.7s var(--ease-out-quart), transform 0.9s var(--ease-out-quart);
+  transition-delay: calc(var(--c, 0) * 38ms);
+  will-change: transform, opacity;
+}
+.is-revealed .hero-char { opacity: 1; transform: translateY(0); }
+
+/* ---------- 3. Buttons: ripple + glow + press ---------- */
+.sv-btn-primary,
+.sv-btn-outline,
+.sv-btn-ghost,
+.sv-btn-glass,
+.sv-cta-btn,
+.btn-gold,
+.btn-glass,
+.btn-ghost,
+.btn-light {
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: scale(0);
+  animation: s4-ripple 0.7s var(--ease-out-quart) forwards;
+  z-index: 2;
+}
+@keyframes s4-ripple {
+  to { transform: scale(1); opacity: 0; }
+}
+
+/* Soft gold glow breathing on primary/cta */
+.sv-btn-primary,
+.sv-cta-btn,
+.btn-gold {
+  position: relative;
+}
+.sv-btn-primary::before,
+.sv-cta-btn::before,
+.btn-gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 90% at 50% 0%, rgba(255, 255, 255, 0.35), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.sv-btn-primary:hover::before,
+.sv-cta-btn:hover::before,
+.btn-gold:hover::before { opacity: 1; }
+.sv-btn-primary:hover,
+.sv-cta-btn:hover,
+.btn-gold:hover {
+  animation: s4-btn-glow 2.2s ease-in-out infinite;
+}
+@keyframes s4-btn-glow {
+  0%, 100% { box-shadow: 0 12px 34px rgba(201, 162, 74, 0.45); }
+  50%      { box-shadow: 0 16px 48px rgba(201, 162, 74, 0.7); }
+}
+.sv-btn-primary:active,
+.sv-cta-btn:active,
+.sv-btn-outline:active,
+.btn-gold:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+/* Magnetic buttons get a smooth return */
+.magnetic { will-change: transform; }
+
+/* ---------- 4. Cards: sheen + border glow + image zoom ---------- */
+/* Sweeping glass reflection on media surfaces */
+.gallery-item,
+.area-media,
+.blog-cat,
+.sv-pa-img,
+.sv-blog-visual,
+.sv-case-visual,
+.sv-team-photo {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.gallery-item::after,
+.area-media::after,
+.blog-cat::after,
+.sv-pa-img::after,
+.sv-blog-visual::after,
+.sv-case-visual::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 250, 230, 0.14) 45%, rgba(255, 250, 230, 0.28) 50%, rgba(255, 250, 230, 0.14) 55%, transparent 80%);
+  transform: skewX(-18deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gallery-item:hover::after,
+.area-media:hover::after,
+.blog-cat:hover::after,
+.sv-pa-img:hover::after,
+.sv-blog-visual:hover::after,
+.sv-case-visual:hover::after {
+  opacity: 1;
+  animation: s4-sheen 1s var(--ease-out-quart) forwards;
+}
+@keyframes s4-sheen {
+  0%   { left: -80%; }
+  100% { left: 135%; }
+}
+
+/* Unified lift + gold ring glow on every card family */
+.card:hover,
+.glass-card:hover,
+.testimonial-card:hover,
+.case-card:hover,
+.blog-card:hover,
+.lawyer-card:hover,
+.sv-team-card:hover,
+.sv-blog-card:hover,
+.sv-case-card:hover,
+.sv-why-card:hover,
+.sv-pa-card:hover,
+.float-card:hover {
+  box-shadow:
+    0 24px 60px -22px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(244, 227, 166, 0.35),
+    0 0 32px -6px rgba(217, 178, 76, 0.35);
+}
+
+/* Slightly stronger image zoom inside lift cards */
+.sv-team-card:hover .sv-team-photo img,
+.lawyer-card:hover .lawyer-photo img,
+.case-card:hover .case-visual img,
+.blog-card:hover .blog-cat img,
+.sv-blog-card:hover .sv-blog-visual img,
+.sv-case-card:hover .sv-case-visual img {
+  transform: scale(1.08);
+}
+
+/* ---------- 5. Hero: ambient motion + parallax ---------- */
+.sv-hero-bg { overflow: hidden; }
+.sv-hero-photo {
+  transform: scale(1.04);
+  animation: s4-hero-pan 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes s4-hero-pan {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to   { transform: scale(1.1) translate3d(-1.2%, 1%, 0); }
+}
+
+/* Subtle continuous drift for floating legal elements */
+.sv-hero-ring   { animation: s4-float-legal 9s ease-in-out infinite; }
+.sv-hero-diamond{ animation: s4-float-legal 11s ease-in-out 0.6s infinite; }
+.sv-hero-scales { animation: s4-float-legal 12.5s ease-in-out 1.2s infinite; }
+@keyframes s4-float-legal {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(6px, -14px, 0) rotate(3deg); }
+}
+
+/* Aurora orbs breathe + drift slower for depth */
+.sv-hero-orb--one,
+.sv-hero-orb--two,
+.sv-hero-orb--three {
+  will-change: transform;
+  animation: s4-orb-breathe 14s ease-in-out infinite;
+}
+.sv-hero-orb--two   { animation-duration: 17s; animation-delay: -4s; }
+.sv-hero-orb--three { animation-duration: 20s; animation-delay: -8s; }
+@keyframes s4-orb-breathe {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(0, -22px, 0) scale(1.12); }
+}
+
+/* ---------- 6. Background: ambient mesh + blob drift ---------- */
+.page-hero-bg {
+  background-size: 160% 160%;
+  animation: s4-mesh-drift 24s ease-in-out infinite alternate;
+}
+@keyframes s4-mesh-drift {
+  from { background-position: 0% 0%; }
+  to   { background-position: 100% 30%; }
+}
+
+/* ---------- 7. Navbar: silky scroll shrink ---------- */
+.sv-nav { transition: background 0.3s ease, box-shadow 0.3s ease, height 0.3s ease; }
+.sv-nav .sv-nav-inner { transition: height 0.3s var(--ease-out-quart), padding 0.3s var(--ease-out-quart); }
+
+/* ---------- 8. Cursor: magnet hint on cards/images ---------- */
+.cursor-ring.is-lift {
+  width: 74px;
+  height: 74px;
+  border-color: rgba(244, 227, 166, 0.95);
+  background: radial-gradient(circle, rgba(217, 178, 76, 0.16), transparent 70%);
+}
+.cursor-dot.is-lift { transform: scale(0.4); }
+
+/* ---------- 9. Reduced motion: kill the new motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-char { opacity: 1; transform: none; transition: none; }
+  .sv-hero-photo, .sv-hero-ring, .sv-hero-diamond, .sv-hero-scales,
+  .sv-hero-orb--one, .sv-hero-orb--two, .sv-hero-orb--three,
+  .page-hero-bg, .loader-inner::after, .loader::after { animation: none !important; }
+  .gallery-item::after, .area-media::after, .blog-cat::after,
+  .sv-pa-img::after, .sv-blog-visual::after, .sv-case-visual::after { display: none; }
+  .ripple { display: none; }
+}

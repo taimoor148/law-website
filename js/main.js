@@ -1,5 +1,5 @@
 /* ============================================================
-   STERLING & VALE LLP — Core Engine (Premium Edition)
+   JUSTICE DESK — Core Engine (Premium Edition)
    Theme · Loader · Cursor · Nav · Particles · Spotlight ·
    Reveal · Counters · Tilt · Parallax · Magnetic · Carousel ·
    Accordion · Filters · Forms · Floats · Transitions · Sprite
@@ -31,6 +31,9 @@
       document.querySelectorAll("[data-theme-toggle]").forEach((b) => {
         b.setAttribute("aria-pressed", mode === "dark" ? "true" : "false");
       });
+      doc.classList.add("theme-switching");
+      clearTimeout(this._t);
+      this._t = setTimeout(() => doc.classList.remove("theme-switching"), 750);
       window.dispatchEvent(new CustomEvent("themechange", { detail: { theme: mode } }));
     },
   };
@@ -57,6 +60,7 @@
       const tick = (now) => {
         const pct = Math.min(100, Math.round(((now - start) / 1200) * 100));
         if (countEl) countEl.textContent = String(pct).padStart(2, "0") + "%";
+        doc.style.setProperty("--load", pct + "%");
         if (pct < 100) requestAnimationFrame(tick);
         else finish();
       };
@@ -87,40 +91,54 @@
       let mx = innerWidth / 2, my = innerHeight / 2;
       let rx = mx, ry = my;
       let gx = mx, gy = my;
+      let dotS = 1, ringS = 1;
 
-      window.addEventListener("mousemove", (e) => {
+      const t3 = (x, y, s) => `translate3d(${x}px, ${y}px, 0) translate(-50%,-50%) scale(${s})`;
+
+      const track = (e) => {
         mx = e.clientX; my = e.clientY;
-        dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+      };
+      window.addEventListener("mousemove", track, { passive: true });
+
+      let lastTime = 0;
+      const loop = (now) => {
+        const dt = now - lastTime;
+        lastTime = now;
+        const f = dt ? Math.min(1, dt / 16.6) : 1;
+        const ringF = f * 0.42;
+        const glowF = f * 0.30;
+        rx += (mx - rx) * ringF;
+        ry += (my - ry) * ringF;
+        gx += (mx - gx) * glowF;
+        gy += (my - gy) * glowF;
+        dot.style.transform = t3(mx, my, dotS);
+        ring.style.transform = t3(rx, ry, ringS);
+        glow.style.transform = t3(gx, gy, 1);
         doc.style.setProperty("--mx", mx + "px");
         doc.style.setProperty("--my", my + "px");
-      });
-
-      const loop = () => {
-        rx += (mx - rx) * 0.16;
-        ry += (my - ry) * 0.16;
-        gx += (mx - gx) * 0.05;
-        gy += (my - gy) * 0.05;
-        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-        glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%,-50%)`;
         requestAnimationFrame(loop);
       };
-      loop();
+      requestAnimationFrame(loop);
 
       const actives = "a, button, [role=button], .tilt, input, textarea, select, .carousel-dot";
       document.addEventListener("mouseover", (e) => {
         if (e.target.closest(actives)) {
           dot.classList.add("is-active");
           ring.classList.add("is-active");
+          dotS = 0.5;
+          ringS = 1.2;
         }
       });
       document.addEventListener("mouseout", (e) => {
         if (e.target.closest(actives)) {
           dot.classList.remove("is-active");
           ring.classList.remove("is-active");
+          dotS = 1;
+          ringS = 1;
         }
       });
-      document.addEventListener("mousedown", () => ring.classList.add("is-pressed"));
-      document.addEventListener("mouseup", () => ring.classList.remove("is-pressed"));
+      document.addEventListener("mousedown", () => ringS = 0.82);
+      document.addEventListener("mouseup", () => ringS = 1);
     },
   };
 
@@ -239,6 +257,8 @@
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             const el = entry.target;
+            if (el.dataset.counted) return;
+            el.dataset.counted = "1";
             const target = parseFloat(el.getAttribute("data-count"));
             const dur = prefersReduced ? 0 : 2000;
             const start = performance.now();
@@ -376,9 +396,12 @@
           track.style.transform = `translateX(-${idx * 100}%)`;
           dots.forEach((d, di) => d.classList.toggle("is-active", di === idx));
         };
-        let timer = setInterval(() => go(idx + 1), 6000);
-        root.addEventListener("mouseenter", () => clearInterval(timer));
-        root.addEventListener("mouseleave", () => (timer = setInterval(() => go(idx + 1), 6000)));
+        let timer = null;
+        if (!prefersReduced) {
+          timer = setInterval(() => go(idx + 1), 6000);
+          root.addEventListener("mouseenter", () => clearInterval(timer));
+          root.addEventListener("mouseleave", () => (timer = setInterval(() => go(idx + 1), 6000)));
+        }
         const prev = root.querySelector("[data-carousel-prev]");
         const next = root.querySelector("[data-carousel-next]");
         if (prev) prev.addEventListener("click", () => go(idx - 1));
@@ -454,7 +477,7 @@
             const field = input.closest(".form-field");
             let ok = input.value.trim().length > 0;
             if (ok && input.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) ok = false;
-            field.classList.toggle("has-error", !ok);
+            if (field) field.classList.toggle("has-error", !ok);
             if (!ok) valid = false;
           });
           if (!valid) return;
@@ -632,6 +655,101 @@
   };
 
   /* ----------------------------------------------------------
+     STEP 4 — RIPPLE · MAGNET-HERO · LETTER REVEAL · HERO PARALLAX
+     ---------------------------------------------------------- */
+  const interact = {
+    ripples() {
+      if (prefersReduced || isTouch) return;
+      const sel = ".sv-btn-primary,.sv-btn-outline,.sv-btn-ghost,.sv-btn-glass," +
+                  ".sv-cta-btn,.btn-gold,.btn-glass,.btn-ghost,.btn-light";
+      document.addEventListener("pointerdown", (e) => {
+        const btn = e.target.closest(sel);
+        if (!btn || btn.disabled) return;
+        const r = btn.getBoundingClientRect();
+        const d = Math.max(r.width, r.height) * 1.4;
+        const span = document.createElement("span");
+        span.className = "ripple";
+        span.style.width = span.style.height = d + "px";
+        span.style.left = e.clientX - r.left - d / 2 + "px";
+        span.style.top = e.clientY - r.top - d / 2 + "px";
+        btn.appendChild(span);
+        setTimeout(() => span.remove(), 750);
+      });
+    },
+    magnetHero() {
+      if (prefersReduced || isTouch) return;
+      document.querySelectorAll(".sv-hero-actions a, .sv-hero-actions button").forEach((el) => {
+        if (el.classList.contains("magnetic")) return;
+        el.addEventListener("mousemove", (e) => {
+          const r = el.getBoundingClientRect();
+          const mx = (e.clientX - r.left - r.width / 2) * 0.22;
+          const my = (e.clientY - r.top - r.height / 2) * 0.22;
+          el.style.setProperty("--mx", mx.toFixed(1) + "px");
+          el.style.setProperty("--my", my.toFixed(1) + "px");
+          el.style.transform = `translate(${mx}px, ${my}px)`;
+        });
+        el.addEventListener("mouseleave", () => {
+          el.style.transform = "translate(0, 0)";
+        });
+      });
+    },
+    letterSplit() {
+      if (prefersReduced) return;
+      document.querySelectorAll(".sv-hero-title .mask-line, .hero-title .mask-line").forEach((line) => {
+        const span = line.querySelector(":scope > span");
+        if (!span || span.children.length || !span.textContent.trim()) return;
+        const words = span.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        let ci = 0;
+        words.forEach((w) => {
+          if (/^\s+$/.test(w)) {
+            frag.appendChild(document.createTextNode(w));
+            return;
+          }
+          const word = document.createElement("span");
+          word.className = "hero-word";
+          [...w].forEach((ch) => {
+            const c = document.createElement("i");
+            c.className = "hero-char";
+            c.textContent = ch;
+            c.style.setProperty("--c", ci++);
+            word.appendChild(c);
+          });
+          frag.appendChild(word);
+        });
+        span.innerHTML = "";
+        span.appendChild(frag);
+        span.classList.add("hero-line");
+      });
+    },
+    heroParallax() {
+      if (prefersReduced) return;
+      const photo = document.querySelector(".sv-hero-photo");
+      const fig = document.querySelector(".sv-hero-fig-scales");
+      const wrap = document.querySelector(".sv-hero");
+      if (!photo) return;
+      const items = [];
+      if (photo) items.push({ el: photo, d: 0.06 });
+      if (fig) items.push({ el: fig, d: 0.12 });
+      let raf = null;
+      const update = () => {
+        if (!wrap) return;
+        const r = wrap.getBoundingClientRect();
+        const mid = r.top + r.height / 2 - innerHeight / 2;
+        items.forEach(({ el, d }) => {
+          el.style.translate = `0 ${(mid * -d).toFixed(1)}px`;
+        });
+        raf = null;
+      };
+      window.addEventListener("scroll", () => {
+        if (raf) return;
+        raf = requestAnimationFrame(update);
+      }, { passive: true });
+      update();
+    },
+  };
+
+  /* ----------------------------------------------------------
      BOOT
      ---------------------------------------------------------- */
   const boot = () => {
@@ -664,6 +782,11 @@
     cursor.init();
     particles.init();
     hero3d.init();
+    interact.ripples();
+    interact.magnetHero();
+    interact.heroParallax();
+    window.addEventListener("app:loaded", () => interact.letterSplit(), { once: true });
+    if (document.body.classList.contains("intro-ready")) interact.letterSplit();
   };
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

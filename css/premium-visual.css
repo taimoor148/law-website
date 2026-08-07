@@ -1,0 +1,167 @@
+/* ============================================================
+   PREMIUM VISUAL SYSTEM — STEP 3
+   Consistent photo grade, media frames, luxury background
+   layers and a unified icon stroke language.
+   Loaded last so it refines — never restructures — the layout.
+   ============================================================ */
+
+/* ---------- 1. Image quality guarantees ---------- */
+img, svg, video, canvas {
+  max-width: 100%;
+}
+
+/* Object-fit: never stretch, never crop-pixelate */
+.sv-hero-photo,
+.sv-pa-img img,
+.sv-case-visual img,
+.sv-blog-visual img,
+.sv-team-photo img,
+.sv-hero-fig img,
+.gallery-item img,
+.area-media img,
+.lawyer-photo img,
+.blog-cat img,
+.case-visual img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
+}
+
+/* Soft focus-safe downscale for retina & large panels */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+  .gallery-item img, .area-media img, .blog-cat img,
+  .case-visual img, .sv-team-photo img { image-rendering: auto; }
+}
+
+/* ---------- 2. Unified premium photo grade ---------- */
+/* One editorial grade across every photograph: warm, rich, film-like. */
+.gallery-item img,
+.area-media img,
+.blog-cat img,
+.case-visual img,
+.sv-case-visual img,
+.sv-blog-visual img,
+.sv-team-photo img,
+.sv-hero-fig img,
+.card img {
+  filter: sepia(0.07) saturate(0.92) contrast(1.05) brightness(1.02);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease;
+}
+
+/* Hero — blend the scene into the gold-dark backdrop */
+.sv-hero-photo {
+  filter: brightness(0.9) saturate(0.85) contrast(1.06) sepia(0.08);
+}
+
+/* ---------- 3. Premium media frames ---------- */
+/* Hairline gold frame + lifted luxury shadow on every media surface. */
+.gallery-item,
+.area-media,
+.lawyer-photo,
+.blog-cat,
+.case-visual,
+.sv-pa-img,
+.sv-case-visual,
+.sv-blog-visual,
+.sv-team-photo {
+  background: var(--surface);
+  box-shadow:
+    0 30px 60px -32px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(244, 227, 166, 0.1);
+}
+
+/* Gentle zoom on hover for editorial media */
+.gallery-item:hover img,
+.area-media:hover img,
+.blog-cat:hover img,
+.case-visual:hover img {
+  transform: scale(1.05);
+}
+
+/* ---------- 4. Luxury background layers ---------- */
+/* Subtle gold geometric texture on flat dark sections. */
+.sv-trust,
+.sv-partners,
+.sv-awards,
+.sv-blog,
+.sv-team {
+  background-image: url("../assets/img/pattern-geometric.svg");
+  background-size: 120px 120px;
+}
+
+/* Soft radial sheen inside CTA banner for depth (no layout change) */
+.sv-cta-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 120% at 20% 0%, rgba(244, 227, 166, 0.07), transparent 60%),
+    radial-gradient(55% 110% at 85% 100%, rgba(138, 101, 38, 0.08), transparent 60%);
+}
+
+/* ---------- 5. Unified icon language ---------- */
+/* One stroke weight (thin, geometric, luxury) across the UI set. */
+.sv-section-head svg *,
+.sv-section-head-icon svg *,
+.sv-why-icon svg *,
+.sv-pa-icon svg *,
+.sv-stat-icon svg *,
+.sv-trust-icon svg *,
+.sv-float-card svg *,
+.sv-award-icon svg *,
+.area-icon svg *,
+.gallery svg *,
+.sv-hero-floats svg {
+  stroke-width: 1.5;
+}
+
+/* Thin premium arrows for buttons and links */
+.sv-btn-primary svg,
+.sv-btn-outline svg,
+.sv-btn-ghost svg,
+.sv-btn-glass svg,
+.sv-link-arrow svg,
+.sv-cta-btn svg,
+.sv-hero-actions svg,
+.sv-blog-card svg,
+.sv-team-social a svg,
+.sv-cta-actions svg {
+  stroke-width: 1.7;
+}
+
+/* ---------- 6. Loader / loader emblem polish ---------- */
+.loader-emblem img {
+  filter: drop-shadow(0 0 18px rgba(217, 178, 76, 0.35));
+}
+
+/* ---------- 7. Light theme refinements ---------- */
+[data-theme="light"] .sv-trust,
+[data-theme="light"] .sv-partners,
+[data-theme="light"] .sv-awards,
+[data-theme="light"] .sv-blog,
+[data-theme="light"] .sv-team {
+  background-image: url("../assets/img/pattern-geometric.svg");
+  background-size: 120px 120px;
+}
+
+[data-theme="light"] .gallery-item,
+[data-theme="light"] .area-media,
+[data-theme="light"] .lawyer-photo,
+[data-theme="light"] .blog-cat,
+[data-theme="light"] .case-visual {
+  box-shadow:
+    0 30px 60px -32px rgba(31, 22, 8, 0.25),
+    inset 0 0 0 1px rgba(154, 122, 46, 0.18);
+}
+
+/* ---------- 8. Brand tagline strapline ---------- */
+.footer-tagline {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--gold-400);
+}
