@@ -1,7 +1,7 @@
 /* ============================================================
    JUSTICE DESK — HOME PAGE JAVASCRIPT
-   Handles: navbar scroll, mobile menu, counter animations,
-   reveal animations, FAQ accordion, back-to-top (theme is handled by main.js)
+   Handles: navbar scroll, mobile menu, FAQ accordion, back-to-top
+   (reveal, counters and theme are handled by main.js)
    ============================================================ */
 
 (function () {
@@ -73,67 +73,6 @@
   }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
 
   spySections.forEach(s => spyObs.observe(s));
-
-  /* ── Intersection Observer for reveal animations ── */
-  const observerOpts = { threshold: 0.15, rootMargin: '0px 0px -60px 0px' };
-
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-revealed');
-        revealObs.unobserve(entry.target);
-      }
-    });
-  }, observerOpts);
-
-  // Observe all data-reveal elements
-  document.querySelectorAll('[data-reveal], .stagger, [data-hero-title]').forEach(el => {
-    revealObs.observe(el);
-  });
-
-  // Hero eyebrow reveal
-  document.querySelectorAll('.sv-hero-eyebrow').forEach(el => {
-    setTimeout(() => el.classList.add('is-revealed'), 200);
-  });
-
-  /* ── Number counter animation ── */
-  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
-
-  function animateCount(el) {
-    const target = parseFloat(el.dataset.count);
-    const decimals = parseInt(el.dataset.decimals || '0');
-    const suffix = el.dataset.suffix || '';
-    const duration = 1800;
-    const start = performance.now();
-
-    const step = (now) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const val = target * easeOut(progress);
-      el.textContent = val.toFixed(decimals) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = target.toFixed(decimals) + suffix;
-    };
-    requestAnimationFrame(step);
-  }
-
-  const counterObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('[data-count]').forEach(el => {
-          if (!el.dataset.counted) {
-            el.dataset.counted = '1';
-            animateCount(el);
-          }
-        });
-        counterObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  document.querySelectorAll('.sv-hero-stats, .sv-stats-band').forEach(el => {
-    counterObs.observe(el);
-  });
 
   /* ── FAQ Accordion ── */
   document.querySelectorAll('.sv-acc-btn').forEach(btn => {

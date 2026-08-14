@@ -105,8 +105,8 @@
         const dt = now - lastTime;
         lastTime = now;
         const f = dt ? Math.min(1, dt / 16.6) : 1;
-        const ringF = f * 0.42;
-        const glowF = f * 0.30;
+        const ringF = f * 0.9;
+        const glowF = f * 0.78;
         rx += (mx - rx) * ringF;
         ry += (my - ry) * ringF;
         gx += (mx - gx) * glowF;
@@ -336,7 +336,15 @@
         io.observe(el);
       });
       this.onScroll();
-      window.addEventListener("scroll", () => this.onScroll(), { passive: true });
+      let raf = null;
+      const onScroll = () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          this.onScroll();
+        });
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
     },
     observe(el) { el._pActive = true; },
     unobserve(el) { el._pActive = false; },
@@ -581,6 +589,7 @@
         let w, h, parts = [], raf = null;
         const DPR = Math.min(window.devicePixelRatio || 1, 2);
 
+        const isMobile = window.innerWidth < 768;
         const resize = () => {
           const r = host.getBoundingClientRect();
           w = r.width; h = r.height;
@@ -589,7 +598,8 @@
           canvas.style.width = w + "px";
           canvas.style.height = h + "px";
           ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-          const count = Math.max(24, Math.min(60, Math.floor(w / 22)));
+          let count = Math.max(24, Math.min(60, Math.floor(w / 22)));
+          if (isMobile) count = Math.max(12, Math.floor(count / 2));
           parts = Array.from({ length: count }, () => spawn(true));
         };
 
@@ -619,7 +629,7 @@
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(229, 199, 110, ${alpha.toFixed(3)})`;
             ctx.shadowColor = "rgba(217,178,76,.8)";
-            ctx.shadowBlur = 8;
+            ctx.shadowBlur = isMobile ? 0 : 8;
             ctx.fill();
             ctx.shadowBlur = 0;
           });

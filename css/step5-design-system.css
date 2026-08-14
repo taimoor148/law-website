@@ -216,3 +216,388 @@ select.form-input:focus {
 @media (prefers-reduced-motion: reduce) {
   html.theme-switching * { transition-duration: 0.001ms !important; }
 }
+
+/* ============================================================
+   PROFESSIONAL POLISH LAYER
+   Refined nav, editorial headings, premium hover states and
+   consistent micro-interactions. Loaded last — purely additive.
+   ============================================================ */
+
+/* ---------- 1. NAVBAR — refined luxury bar ---------- */
+.sv-nav {
+  border-bottom-color: rgba(244, 227, 166, 0.16);
+  box-shadow: 0 10px 34px -18px rgba(0, 0, 0, 0.55);
+}
+.sv-nav::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217, 178, 76, 0.65), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.sv-nav.scrolled::after { opacity: 1; }
+
+.sv-nav-link::after {
+  height: 1.5px;
+  bottom: 2px;
+  background: linear-gradient(90deg, var(--gold-300), var(--gold-500));
+}
+.sv-nav-link:hover { color: var(--gold-300); }
+.sv-nav-link--active { color: #fff; }
+[data-theme="light"] .sv-nav-link:hover { color: var(--gold-300); }
+
+/* Refined mobile menu links — gold sweep on hover */
+.sv-mobile-link { position: relative; }
+.sv-mobile-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--gold-400), transparent 80%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out-quart);
+}
+.sv-mobile-link:hover::after { transform: scaleX(1); }
+
+/* ---------- 2. EDITORIAL SECTION HEADINGS ---------- */
+.sv-section-head-simple {
+  position: relative;
+  max-width: 720px;
+}
+.sv-section-head-simple.center { margin-inline: auto; }
+
+/* Gold rule framing the eyebrow label */
+.sv-section-head-simple .sv-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.sv-section-head-simple .sv-eyebrow::after {
+  content: "";
+  width: 46px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-400), transparent);
+}
+.sv-section-head-simple.center .sv-eyebrow::after {
+  background: linear-gradient(90deg, transparent, var(--gold-400), transparent);
+}
+.sv-section-head-simple .sv-h2 {
+  letter-spacing: -0.01em;
+}
+.sv-section-head-simple .sv-lead {
+  color: var(--text-soft);
+}
+
+/* Living gold for the accent words */
+.sv-gold-text {
+  background-size: 220% auto;
+  animation: sv-gold-shimmer 9s linear infinite;
+}
+@keyframes sv-gold-shimmer {
+  to { background-position: 220% center; }
+}
+
+/* ---------- 3. PREMIUM CARD HOVER STATES ---------- */
+.sv-why-card,
+.sv-team-card,
+.sv-blog-card,
+.sv-case-card,
+.sv-testi-card,
+.sv-award-item {
+  transition: transform 0.45s var(--ease-out-quart),
+              border-color 0.45s ease,
+              box-shadow 0.45s ease,
+              background 0.45s ease;
+}
+.sv-why-card:hover,
+.sv-team-card:hover,
+.sv-blog-card:hover,
+.sv-case-card:hover,
+.sv-testi-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(217, 178, 76, 0.38);
+  box-shadow:
+    0 26px 54px -26px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(217, 178, 76, 0.16),
+    0 14px 44px -18px rgba(201, 162, 74, 0.16);
+}
+[data-theme="light"] .sv-why-card:hover,
+[data-theme="light"] .sv-team-card:hover,
+[data-theme="light"] .sv-blog-card:hover,
+[data-theme="light"] .sv-case-card:hover,
+[data-theme="light"] .sv-testi-card:hover {
+  box-shadow:
+    0 26px 54px -28px rgba(74, 60, 30, 0.28),
+    0 0 0 1px rgba(138, 101, 38, 0.22),
+    0 14px 44px -20px rgba(201, 162, 74, 0.18);
+}
+
+/* Card headings — crisp, confident */
+.sv-why-card h3,
+.sv-blog-card h3,
+.sv-case-card h3,
+.sv-team-card h3,
+.pa2-card h3 {
+  letter-spacing: -0.01em;
+}
+
+/* ---------- 4. BUTTON MICRO-INTERACTIONS ---------- */
+.sv-btn-primary,
+.sv-btn-lg,
+.hx-btn--gold,
+.pa2-cta-btn {
+  transition: transform 0.3s var(--ease-out-quart),
+              box-shadow 0.3s ease,
+              filter 0.3s ease;
+}
+.sv-btn-primary:hover,
+.hx-btn--gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -14px rgba(201, 162, 74, 0.55);
+  filter: saturate(1.08) brightness(1.03);
+}
+
+/* Ghost / glass buttons — gold edge on hover */
+.sv-btn-glass:hover,
+.sv-btn-ghost:hover {
+  border-color: rgba(217, 178, 76, 0.55);
+  box-shadow: 0 10px 30px -16px rgba(201, 162, 74, 0.4);
+}
+
+/* Arrow nudge on primary CTAs */
+.sv-btn-primary svg,
+.hx-btn svg,
+.pa2-cta-btn svg {
+  transition: transform 0.3s var(--ease-out-quart);
+}
+.sv-btn-primary:hover svg,
+.hx-btn:hover svg,
+.pa2-cta-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ---------- 5. FAQ ACCORDION POLISH ---------- */
+.sv-acc-item {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.sv-acc-item:hover {
+  border-color: rgba(217, 178, 76, 0.3);
+}
+.sv-acc-btn {
+  font-weight: 500;
+}
+.sv-acc-btn .sv-acc-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-spring),
+              border-color 0.3s ease,
+              color 0.3s ease,
+              background 0.3s ease;
+}
+.sv-acc-btn:hover .sv-acc-icon {
+  border-color: var(--gold-400);
+  color: var(--gold-400);
+}
+.sv-acc-btn[aria-expanded="true"] .sv-acc-icon {
+  background: var(--gold-gradient);
+  border-color: transparent;
+  color: #241C07;
+}
+
+/* ---------- 6. FOOTER POLISH ---------- */
+.sv-footer-col ul a {
+  color: var(--text-muted);
+  transition: color 0.25s ease, padding-left 0.25s ease;
+}
+.sv-footer-col ul a:hover {
+  color: var(--gold-300);
+  padding-left: 4px;
+}
+.sv-social-btn {
+  transition: transform 0.3s var(--ease-spring), border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+.sv-social-btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+}
+
+/* ---------- 7. GOLD SCROLLBAR ---------- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-alt); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-500), var(--gold-700));
+  border-radius: 10px;
+  border: 2px solid var(--bg-alt);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--gold-400); }
+
+/* ---------- 8. CONSISTENT BODY COPY ---------- */
+.sv-section p,
+.sv-about p,
+.sv-cases p,
+.sv-blog p {
+  color: var(--text-soft);
+}
+
+/* ============================================================
+   TESTIMONIALS — static 3-column grid (no carousel)
+   ============================================================ */
+.sv-testi-grid {
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+}
+.sv-testi-card {
+  min-height: 100%;
+}
+.sv-testi-card blockquote {
+  font-size: 1rem;
+}
+.sv-testi-stars {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: var(--gold-400);
+}
+@media (max-width: 900px) {
+  .sv-testi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   ROUNDED SECTION PANELS — every section as a premium card
+   ============================================================ */
+.sv-section {
+  max-width: 1760px;
+  width: calc(100% - 48px);
+  margin-inline: auto;
+  border-radius: 40px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 46px 100px -70px rgba(0, 0, 0, 0.6);
+}
+.sv-section + .sv-section {
+  margin-top: 28px;
+}
+[data-theme="light"] .sv-section {
+  box-shadow: 0 46px 100px -70px rgba(74, 60, 30, 0.35);
+}
+@media (max-width: 768px) {
+  .sv-section {
+    width: calc(100% - 24px);
+    border-radius: 26px;
+  }
+  .sv-section + .sv-section {
+    margin-top: 18px;
+  }
+}
+
+/* ============================================================
+   PATTERN BACKGROUNDS REMOVED — clean design site-wide
+   ============================================================ */
+.sv-trust,
+.sv-partners,
+.sv-awards,
+.sv-blog,
+.sv-team,
+[data-theme="light"] .sv-trust,
+[data-theme="light"] .sv-partners,
+[data-theme="light"] .sv-awards,
+[data-theme="light"] .sv-blog,
+[data-theme="light"] .sv-team {
+  background-image: none;
+}
+
+/* Faint dot-grid layers in hero and practice areas — removed too */
+.hx-pattern,
+.pa2-pattern {
+  display: none;
+}
+
+/* ============================================================
+   STYLISH ICON CHIPS — gold glass medallions
+   ============================================================ */
+.sv-why-icon {
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(217, 178, 76, 0.16), rgba(138, 101, 38, 0.05));
+  border: 1px solid rgba(217, 178, 76, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 24px -14px rgba(201, 162, 74, 0.45);
+  transition: transform 0.45s var(--ease-spring),
+              box-shadow 0.45s ease,
+              border-color 0.45s ease;
+}
+.sv-why-card:hover .sv-why-icon {
+  transform: translateY(-4px) rotate(-5deg);
+  border-color: rgba(217, 178, 76, 0.6);
+  box-shadow:
+    0 16px 34px -16px rgba(201, 162, 74, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+[data-theme="light"] .sv-why-icon {
+  background: linear-gradient(145deg, rgba(217, 178, 76, 0.2), rgba(217, 178, 76, 0.06));
+  box-shadow: 0 10px 24px -16px rgba(201, 162, 74, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.sv-trust-icon {
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(217, 178, 76, 0.14), rgba(138, 101, 38, 0.04));
+  border-color: rgba(217, 178, 76, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.pa2-icon {
+  border-radius: 18px;
+}
+
+/* Section-head emblems get the same gold-glass language */
+.sv-section-head-icon {
+  color: var(--gold-400);
+}
+
+/* ============================================================
+   FOOTER WATERMARK — faint brand name in the background
+   ============================================================ */
+.sv-footer {
+  overflow: hidden;
+}
+.sv-footer::before {
+  content: "JUSTICE DESK";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(4rem, 11vw, 10rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: var(--gold-400);
+  opacity: 0.06;
+  pointer-events: none;
+  user-select: none;
+}
+[data-theme="light"] .sv-footer::before { opacity: 0.07; }
+.sv-footer-top,
+.sv-footer-bottom {
+  position: relative;
+  z-index: 1;
+}
