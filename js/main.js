@@ -45,14 +45,13 @@
     init() {
       const el = document.querySelector(".loader");
       const countEl = document.querySelector("[data-loader-count]");
-      if (!el) return;
       const finish = () => {
-        el.classList.add("is-done");
+        el?.classList.add("is-done");
         document.querySelectorAll("[data-hero-title]").forEach((h) => h.classList.add("is-revealed"));
-        window.dispatchEvent(new CustomEvent("app:loaded"));
         document.body.classList.add("intro-ready");
+        window.dispatchEvent(new CustomEvent("app:loaded"));
       };
-      if (prefersReduced) {
+      if (!el || prefersReduced) {
         finish();
         return;
       }
@@ -765,7 +764,6 @@
   const boot = () => {
     sprite.init();
     theme.init();
-    loader.init();
     (function () {
       const over = document.createElement("div");
       over.className = "page-transition";
@@ -796,7 +794,7 @@
     interact.magnetHero();
     interact.heroParallax();
     window.addEventListener("app:loaded", () => interact.letterSplit(), { once: true });
-    if (document.body.classList.contains("intro-ready")) interact.letterSplit();
+    loader.init();
   };
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
