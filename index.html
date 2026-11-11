@@ -15,7 +15,7 @@
       var t;
       try { t = localStorage.getItem("sv-theme"); } catch (e) {}
       if (!t) {
-        try { t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "dark"; } catch (e) { t = "dark"; }
+        try { t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"; } catch (e) { t = "dark"; }
       }
       document.documentElement.setAttribute("data-theme", t);
     })();
@@ -31,17 +31,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.min.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LegalService",
-    "name": "Justice Desk",
-    "description": "International law firm providing premium legal counsel.",
-    "telephone": "+1-212-555-0134",
-    "address": { "@type": "PostalAddress", "streetAddress": "450 Madison Avenue, Suite 2200", "addressLocality": "New York", "addressRegion": "NY", "postalCode": "10022", "addressCountry": "US" },
-    "priceRange": "$$$"
-  }
-  </script>
   <style>
     .hx-hero { isolation: isolate; overflow: hidden; min-height: 100svh; align-items: stretch; background: #12100d; }
     .jd-hero-photo { position: absolute; z-index: -2; inset: 0 0 0 35%; }
@@ -76,6 +65,34 @@
       .jd-mobile-consult[hidden], body:has(.sv-mobile-menu.open) .jd-mobile-consult { display: none; }
     }
     @media (prefers-reduced-motion: reduce) { .jd-hero-content { animation: none; } }
+
+    :root[data-theme="dark"] { --jd-paper:#181512; --jd-line:#483c2b; --jd-accent:#e5c98a; }
+    :root[data-theme="light"] { --jd-paper:#fffaf1; --jd-line:#ded0bc; --jd-accent:#704b18; }
+    [data-theme="light"] .hx-hero { background:#f5ead8; }
+    [data-theme="light"] .hx-hero::after { background:linear-gradient(90deg,#f5ead8 23%,#f5ead8f2 39%,#f5ead81f 72%),linear-gradient(0deg,#f5ead8 0%,transparent 18%); }
+    [data-theme="light"] .jd-hero-content { color:#261c12; }
+    [data-theme="light"] .jd-hero-content em,[data-theme="light"] .jd-hero-kicker { color:#704b18; }
+    [data-theme="light"] .jd-hero-summary { color:#4b3929; }
+    [data-theme="light"] .jd-hero-content .hx-btn { background:#352719; color:#fff7e9; border-color:#352719; }
+    [data-theme="light"] .jd-feature.pa2-card { background:linear-gradient(0deg,#16120ff5 7%,#16120f55 100%),var(--jd-photo) center 45% / cover; }
+    [data-theme="light"] .jd-feature.pa2-card .pa2-title,[data-theme="light"] .jd-feature.pa2-card .pa2-desc { color:#fff5e8; }
+    [data-theme="light"] .jd-feature.pa2-card .pa2-link { color:#f4d99c; }
+    .jd-editorial-grid { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:clamp(24px,6vw,86px); }
+    .jd-editorial-grid img { width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; border-radius:20px; }
+    .jd-editorial .sv-h2 { margin:12px 0 20px; }
+    .jd-editorial p,.jd-intake-guide li { color:var(--text-muted); }
+    .jd-scenario-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+    .jd-scenario-grid article,.jd-intake-guide { padding:clamp(22px,4vw,42px); background:var(--jd-paper); border:1px solid var(--jd-line); border-radius:18px; }
+    .jd-scenario-grid h3,.jd-intake-guide h3 { font-family:var(--font-display); font-size:clamp(1.35rem,2.4vw,2rem); margin:0 0 12px; }
+    .jd-intake-guide h3 { margin-top:12px; }
+    .jd-intake-guide ul { padding-left:1.2em; list-style:disc; margin:0 0 20px; }
+    .jd-text-link { display:inline-block; color:var(--jd-accent); text-decoration:underline; text-underline-offset:4px; font-weight:600; margin-top:10px; }
+    .jd-text-link:focus-visible,.jd-mobile-consult:focus-visible { outline:2px solid var(--jd-accent); outline-offset:4px; }
+    .sv-footer .sv-footer-grid { grid-template-columns:1.4fr 1fr 1fr; }
+    @media(max-width:700px) {
+      [data-theme="light"] .hx-hero::after { background:linear-gradient(0deg,#f5ead8 9%,#f5ead8f5 31%,#f5ead87a 59%,#f5ead812 90%); }
+      .jd-editorial-grid,.jd-scenario-grid,.sv-footer .sv-footer-grid { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body class="grain">
@@ -101,7 +118,7 @@
         <a class="sv-nav-link sv-nav-link--active" href="#top" data-nav="top">Home</a>
         <a class="sv-nav-link" href="#about" data-nav="about">About</a>
         <a class="sv-nav-link" href="#practice" data-nav="practice">Practice Areas</a>
-        <a class="sv-nav-link" href="#results" data-nav="results">Case Results</a>
+        <a class="sv-nav-link" href="#results" data-nav="results">Example Matters</a>
         <a class="sv-nav-link" href="#contact" data-nav="contact">Contact</a>
       </nav>
 
@@ -125,12 +142,12 @@
   <!-- Mobile Menu -->
   <div class="sv-mobile-menu" id="sv-mobile-menu" aria-hidden="true">
     <nav class="sv-mobile-nav" aria-label="Mobile">
-      <a class="sv-mobile-link" href="#top"><span>01</span> Home</a>
-      <a class="sv-mobile-link" href="#about"><span>02</span> About</a>
-      <a class="sv-mobile-link" href="#practice"><span>03</span> Practice Areas</a>
-      <a class="sv-mobile-link" href="#team"><span>04</span> Our Lawyers</a>
-      <a class="sv-mobile-link" href="#results"><span>05</span> Case Results</a>
-      <a class="sv-mobile-link" href="#contact"><span>06</span> Contact</a>
+      <a class="sv-mobile-link" href="#top">Home</a>
+      <a class="sv-mobile-link" href="#about">About</a>
+      <a class="sv-mobile-link" href="#practice">Practice Areas</a>
+      <a class="sv-mobile-link" href="#team">Our Lawyers</a>
+      <a class="sv-mobile-link" href="#results">Example Matters</a>
+      <a class="sv-mobile-link" href="#contact">Contact</a>
     </nav>
     <div class="sv-mobile-cta">
       <a href="#contact" class="sv-cta-btn sv-cta-btn--lg">Book a Consultation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -149,7 +166,7 @@
              fetchpriority="high" alt="">
       </picture>
       <div class="jd-hero-content">
-        <p class="jd-hero-kicker">Justice Desk · New York</p>
+        <p class="jd-hero-kicker">Justice Desk · Law firm concept</p>
         <h1>Clear counsel.<br><em>Decisive action.</em></h1>
         <p class="jd-hero-summary">Legal counsel for businesses, individuals and families facing consequential decisions.</p>
         <a href="#contact" class="hx-btn hx-btn--gold">Request a Consultation <span aria-hidden="true">→</span></a>
@@ -157,339 +174,25 @@
     </section>
 
     <!-- ============ 2. TRUSTED BY / STATISTICS ============ -->
-    <section class="sv-section sv-trust" id="trust" aria-label="Firm performance highlights">
-      <div class="sv-container">
-        <div class="sv-trust-grid" data-reveal="up">
-          <div class="sv-trust-item">
-            <span class="sv-trust-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </span>
-            <div class="sv-trust-num"><span data-count="500">0</span>+</div>
-            <div class="sv-trust-lbl">Satisfied Clients</div>
-          </div>
-          <div class="sv-trust-item">
-            <span class="sv-trust-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><circle cx="12" cy="12" r="10"/><path d="M8.5 12.5l2.5 2.5 5-5.5"/></svg>
-            </span>
-            <div class="sv-trust-num"><span data-count="98">0</span>%</div>
-            <div class="sv-trust-lbl">Success Rate</div>
-          </div>
-          <div class="sv-trust-item">
-            <span class="sv-trust-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            </span>
-            <div class="sv-trust-num"><span data-count="20">0</span>+</div>
-            <div class="sv-trust-lbl">Years of Experience</div>
-          </div>
-          <div class="sv-trust-item">
-            <span class="sv-trust-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><path d="M12 22V8M5 12H2a10 10 0 0 0 20 0h-3"/><path d="M12 8c0-2.2-1.8-4-4-4S4 5.8 4 8"/><path d="M12 8c0-2.2 1.8-4 4-4s4 1.8 4 4"/></svg>
-            </span>
-            <div class="sv-trust-num"><span data-count="1000">0</span>+</div>
-            <div class="sv-trust-lbl">Cases Handled</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ============ CLIENT LOGOS ============ -->
-    <section class="sv-section sv-partners" id="partners" aria-label="Trusted by leading institutions">
-      <div class="sv-container">
-        <p class="sv-partners-label" data-reveal="fade">Trusted by Institutions Worldwide</p>
-        <div class="sv-partners-outer" data-reveal="fade">
-          <div class="sv-partners-marquee">
-            <div class="sv-partners-track">
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" aria-hidden="true"><path d="M12 3l9 9-9 9-9-9z"/></svg>
-                Meridian Capital
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-                Northline Group
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" aria-hidden="true"><path d="M12 2l8.5 5v10L12 22l-8.5-5V7z"/></svg>
-                Aurex Industries
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" aria-hidden="true"><path d="M12 2l8 4v6c0 5.2-3.4 9-8 10-4.6-1-8-4.8-8-10V6z"/></svg>
-                Vantage Trust
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" aria-hidden="true"><circle cx="9" cy="12" r="5.5"/><circle cx="15" cy="12" r="5.5"/></svg>
-                Helix Partners
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" aria-hidden="true"><path d="M12 3l9 4H3z"/><path d="M5 11h14v10H5z"/><path d="M9 11v6M15 11v6"/></svg>
-                Sovereign Bank
-              </span>
-            </div>
-            <div class="sv-partners-track sv-partners-track--clone" aria-hidden="true">
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M12 3l9 9-9 9-9-9z"/></svg>
-                Meridian Capital
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-                Northline Group
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M12 2l8.5 5v10L12 22l-8.5-5V7z"/></svg>
-                Aurex Industries
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M12 2l8 4v6c0 5.2-3.4 9-8 10-4.6-1-8-4.8-8-10V6z"/></svg>
-                Vantage Trust
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><circle cx="9" cy="12" r="5.5"/><circle cx="15" cy="12" r="5.5"/></svg>
-                Helix Partners
-              </span>
-              <span class="sv-partner-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><path d="M12 3l9 4H3z"/><path d="M5 11h14v10H5z"/><path d="M9 11v6M15 11v6"/></svg>
-                Sovereign Bank
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ============ STATISTICS BAND ============ -->
-    <section class="sv-section sv-stats-section" id="statistics" aria-label="Statistics">
-      <div class="sv-container">
-        <div class="sv-stats-band" data-reveal="zoom">
-          <div class="sv-sband-item">
-            <div class="sv-sband-num"><span data-count="1200">0</span>+</div>
-            <div class="sv-sband-lbl">Matters Won</div>
-          </div>
-          <div class="sv-sband-divider"></div>
-          <div class="sv-sband-item">
-            <div class="sv-sband-num">$<span data-count="4.6" data-decimals="1" data-suffix="M">0</span></div>
-            <div class="sv-sband-lbl">Recovered for Clients</div>
-          </div>
-          <div class="sv-sband-divider"></div>
-          <div class="sv-sband-item">
-            <div class="sv-sband-num"><span data-count="8">0</span>+</div>
-            <div class="sv-sband-lbl">Senior Attorneys</div>
-          </div>
-          <div class="sv-sband-divider"></div>
-          <div class="sv-sband-item">
-            <div class="sv-sband-num"><span data-count="98">0</span>%</div>
-            <div class="sv-sband-lbl">Client Retention</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ============ 3. ABOUT JUSTICE DESK ============ -->
-    <section class="sv-section sv-about" id="about" aria-labelledby="about-heading">
-      <div class="sv-container">
-        <div class="sv-section-head-simple" data-reveal="up">
+    <section class="sv-section jd-editorial" id="about" aria-labelledby="about-heading">
+      <div class="sv-container jd-editorial-grid">
+        <div>
           <span class="sv-eyebrow">About Justice Desk</span>
-          <h2 id="about-heading" class="sv-h2">Four Decades of <span class="sv-gold-text">Defining Counsel</span></h2>
+          <h2 class="sv-h2" id="about-heading">Advice that makes the next step clear.</h2>
+          <p>From a business transaction to a family transition, the first conversation should help you understand your options and decide what to do next.</p>
+          <a class="jd-text-link" href="#practice">Explore our practice areas <span aria-hidden="true">→</span></a>
         </div>
-
-        <div class="sv-split">
-          <div class="sv-about-copy" data-reveal="left">
-            <p class="sv-lead">Founded in a single Manhattan office by Eleanor Sterling and Henry Vale in 1984, the firm began with a conviction: that the law, practised brilliantly, is the most powerful instrument of human progress.</p>
-            <p>Today, Justice Desk is a focused legal services practice with 8 senior attorneys based at our New York headquarters. Yet our founding ethos remains untouched — every client receives partner-level attention, every matter receives uncompromising preparation, and every outcome is pursued with surgical precision.</p>
-            <p>We measure success in the futures we secure — the companies built, the liberties defended, the legacies protected. Every client receives partner-level attention and a clear plan, from your first call to your final relief.</p>
-            <div class="sv-about-stats">
-              <div class="sv-about-stat"><div class="num"><span data-count="40">0</span>+</div><div class="lbl">Years of Practice</div></div>
-              <div class="sv-about-stat"><div class="num"><span data-count="1">0</span></div><div class="lbl">Headquarters</div></div>
-              <div class="sv-about-stat"><div class="num"><span data-count="24">0</span></div><div class="lbl">Countries Covered</div></div>
-              <div class="sv-about-stat"><div class="num"><span data-count="24">0</span>+</div><div class="lbl">Industry Awards</div></div>
-            </div>
-          </div>
-          <div class="sv-about-media" data-reveal="right">
-            <img src="assets/img/photos/office-interior.webp" alt="Justice Desk headquarters interior" loading="lazy" width="1600" height="1068" decoding="async">
-            <div class="sv-about-media-badge">
-              <strong>1</strong>
-              <span>Headquarters on Madison Avenue, New York — growing</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mission & Vision -->
-        <div class="sv-about-mission stagger" data-reveal>
-          <div class="sv-why-card">
-            <span class="sv-why-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-            </span>
-            <span class="sv-eyebrow" style="margin-bottom:10px">Our Mission</span>
-            <h3>To Turn Complexity into Clarity</h3>
-            <p>We exist to give our clients the confidence that comes from perfect counsel. Every brief is a promise — to understand the problem entirely, pursue the solution relentlessly, and protect the client absolutely.</p>
-          </div>
-          <div class="sv-why-card">
-            <span class="sv-why-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </span>
-            <span class="sv-eyebrow" style="margin-bottom:10px">Our Vision</span>
-            <h3>The Standard of Global Legal Excellence</h3>
-            <p>To be the first firm the world's leaders think of when the stakes are highest — setting the benchmark for strategic counsel, ethical practice and transformative outcomes.</p>
-          </div>
-        </div>
-
-        <!-- Core Values -->
-        <div class="sv-subhead" data-reveal="up">
-          <h3>Core Values</h3>
-          <span class="sv-subhead-line"></span>
-        </div>
-        <div class="sv-values-grid stagger" data-reveal>
-          <div class="sv-why-card">
-            <span class="sv-why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M12 22V8M5 12H2a10 10 0 0 0 20 0h-3"/><path d="M12 8c0-2.2-1.8-4-4-4S4 5.8 4 8"/><path d="M12 8c0-2.2 1.8-4 4-4s4 1.8 4 4"/></svg></span>
-            <h3>Integrity</h3>
-            <p>Unshakeable ethics, always. We advise as we would advise ourselves.</p>
-          </div>
-          <div class="sv-why-card">
-            <span class="sv-why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
-            <h3>Precision</h3>
-            <p>Meticulous preparation leaves nothing to chance in any engagement.</p>
-          </div>
-          <div class="sv-why-card">
-            <span class="sv-why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-            <h3>Discretion</h3>
-            <p>Our clients' affairs are sacred — protected by ironclad privilege.</p>
-          </div>
-          <div class="sv-why-card">
-            <span class="sv-why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M22 12H12L8 8"/></svg></span>
-            <h3>Leadership</h3>
-            <p>We don't follow the law's evolution — we shape it.</p>
-          </div>
-        </div>
-
-        <!-- Firm Milestones -->
-        <div class="sv-subhead" data-reveal="up">
-          <h3>The Journey So Far</h3>
-          <span class="sv-subhead-line"></span>
-        </div>
-        <div class="sv-milestones">
-          <div class="sv-milestone" data-reveal="left">
-            <span class="sv-milestone-dot"></span>
-            <div class="sv-milestone-year">1984</div>
-            <h4>The Founding</h4>
-            <p>Eleanor Sterling and Henry Vale open a two-desks office on Madison Avenue with a single case — and a refusal to lose it.</p>
-          </div>
-          <div class="sv-milestone" data-reveal="left">
-            <span class="sv-milestone-dot"></span>
-            <div class="sv-milestone-year">1992</div>
-            <h4>First Landmark Victory</h4>
-            <p>We secure a precedent-setting corporate ruling that reshapes merger law in New York State.</p>
-          </div>
-          <div class="sv-milestone" data-reveal="left">
-            <span class="sv-milestone-dot"></span>
-            <div class="sv-milestone-year">2009</div>
-            <h4>Regional Expansion</h4>
-            <p>We expand our dispute resolution practice across the Tri-State region, earning a reputation for courtroom precision beyond Manhattan.</p>
-          </div>
-          <div class="sv-milestone" data-reveal="left">
-            <span class="sv-milestone-dot"></span>
-            <div class="sv-milestone-year">2013</div>
-            <h4>Chambers Band 1 Recognition</h4>
-            <p>First of our decade-long unbroken run as a Band 1 firm for Corporate Law.</p>
-          </div>
-          <div class="sv-milestone" data-reveal="left">
-            <span class="sv-milestone-dot"></span>
-            <div class="sv-milestone-year">2021</div>
-            <h4>Digital Justice Initiative</h4>
-            <p>We pioneer a secure client case portal and AI-assisted research unit — a first for a firm of our scale.</p>
-          </div>
-          <div class="sv-milestone" data-reveal="left">
-            <span class="sv-milestone-dot"></span>
-            <div class="sv-milestone-year">2026</div>
-            <h4>A Legacy Continued</h4>
-            <p>Now 8 senior attorneys, still bound by the founding promise — never lose a case that deserves to be won.</p>
-          </div>
-        </div>
-
-        <!-- Recognition / Awards -->
-        <div class="sv-subhead" data-reveal="up">
-          <h3>A Legacy of Excellence</h3>
-          <span class="sv-subhead-line"></span>
-        </div>
-        <div class="sv-split">
-          <div data-reveal="left">
-            <p class="sv-lead" style="margin-top:0">Independently ranked among the world's leading law firms, our counsel has been honoured by every major authority in the profession.</p>
-            <p style="color:var(--text-muted);font-size:.95rem;line-height:1.8">Our record of recognition mirrors our record of results — a standard of excellence that has never wavered across more than four decades.</p>
-          </div>
-          <div class="sv-awards-list" data-reveal="right">
-            <div class="sv-award-item">
-              <span class="sv-award-medal">🏆</span>
-              <div>
-                <div class="sv-award-name">Law Firm of the Year</div>
-                <div class="sv-award-org">International Legal Awards</div>
-              </div>
-              <span class="sv-award-year">2025</span>
-            </div>
-            <div class="sv-award-item">
-              <span class="sv-award-medal">🏆</span>
-              <div>
-                <div class="sv-award-name">Band 1 — Corporate Law</div>
-                <div class="sv-award-org">Chambers &amp; Partners</div>
-              </div>
-              <span class="sv-award-year">2025</span>
-            </div>
-            <div class="sv-award-item">
-              <span class="sv-award-medal">🏆</span>
-              <div>
-                <div class="sv-award-name">Litigation Team of the Year</div>
-                <div class="sv-award-org">The Legal 500</div>
-              </div>
-              <span class="sv-award-year">2024</span>
-            </div>
-            <div class="sv-award-item">
-              <span class="sv-award-medal">🏆</span>
-              <div>
-                <div class="sv-award-name">Client Choice Award</div>
-                <div class="sv-award-org">Lexology</div>
-              </div>
-              <span class="sv-award-year">2024</span>
-            </div>
-          </div>
-        </div>
+        <img src="assets/img/photos/office-interior.webp" width="1600" height="1068" loading="lazy" decoding="async" alt="Contemporary office with floor-to-ceiling windows">
       </div>
     </section>
 
     <!-- ============ 4. WHY CHOOSE US ============ -->
-    <section class="sv-section sv-why" id="why" aria-labelledby="why-heading">
-      <div class="sv-container">
-        <div class="sv-section-head-simple" data-reveal="up">
-          <span class="sv-eyebrow">Why Justice Desk</span>
-          <h2 id="why-heading" class="sv-h2">The Difference is <span class="sv-gold-text">in the Detail</span></h2>
-        </div>
-        <div class="sv-why-grid stagger" data-reveal>
-          <div class="sv-why-card">
-            <span class="sv-why-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><circle cx="12" cy="12" r="3"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4M18.36 5.64l-2.83 2.83M8.46 15.54l-2.83 2.83M18.36 18.36l-2.83-2.83M8.46 8.46 5.63 5.63"/></svg>
-            </span>
-            <h3>Experienced Attorneys</h3>
-            <p>A proven track record across 40+ years — senior attorneys who have argued and won the most complex matters in their fields.</p>
-          </div>
-          <div class="sv-why-card">
-            <span class="sv-why-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </span>
-            <h3>Transparent Communication</h3>
-            <p>Clear, fixed-fee terms and direct partner access — you always know where your matter stands and what it costs.</p>
-          </div>
-          <div class="sv-why-card">
-            <span class="sv-why-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </span>
-            <h3>Client-Focused Strategy</h3>
-            <p>Every engagement is bespoke — a strategy built around your goals, your risk tolerance and your timeline.</p>
-          </div>
-          <div class="sv-why-card">
-            <span class="sv-why-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </span>
-            <h3>Fast &amp; Confidential</h3>
-            <p>Absolute privilege plus a senior partner response within 24 hours — discreet, and always on time.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ============ 5. PRACTICE AREAS ============ -->
     <section class="sv-section sv-practice pa2" id="practice" aria-labelledby="practice-heading">
@@ -661,7 +364,7 @@
             <circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
-          <h2 id="team-heading" class="sv-section-title">Meet Our <span class="sv-gold-text">Senior Counsel</span></h2>
+          <h2 id="team-heading" class="sv-section-title">Meet the <span class="sv-gold-text">Sample Team</span></h2>
           <div class="sv-section-head-line"></div>
         </div>
         <div class="sv-team-grid sv-team-grid--eight stagger" data-reveal>
@@ -669,7 +372,6 @@
             <div class="sv-team-photo">
               <img src="assets/img/photos/lawyer-1.webp" alt="Eleanor Sterling, Founding Partner" loading="lazy" width="900" height="1150" decoding="async">
               <div class="sv-team-photo-overlay"></div>
-              <span class="sv-team-exp">38+ yrs</span>
             </div>
             <div class="sv-team-body">
               <h3>Eleanor Sterling</h3>
@@ -681,7 +383,6 @@
             <div class="sv-team-photo">
               <img src="assets/img/photos/lawyer-2.webp" alt="David Vale, Managing Partner" loading="lazy" width="900" height="1150" decoding="async">
               <div class="sv-team-photo-overlay"></div>
-              <span class="sv-team-exp">32+ yrs</span>
             </div>
             <div class="sv-team-body">
               <h3>David Vale</h3>
@@ -693,7 +394,6 @@
             <div class="sv-team-photo">
               <img src="assets/img/photos/lawyer-3.webp" alt="Amelia Rossi, Partner Corporate M&A" loading="lazy" width="900" height="1150" decoding="async">
               <div class="sv-team-photo-overlay"></div>
-              <span class="sv-team-exp">25+ yrs</span>
             </div>
             <div class="sv-team-body">
               <h3>Amelia Rossi</h3>
@@ -705,7 +405,6 @@
             <div class="sv-team-photo">
               <img src="assets/img/photos/lawyer-4.webp" alt="Étienne Laurent, Partner International Tax" loading="lazy" width="900" height="1150" decoding="async">
               <div class="sv-team-photo-overlay"></div>
-              <span class="sv-team-exp">22+ yrs</span>
             </div>
             <div class="sv-team-body">
               <h3>Étienne Laurent</h3>
@@ -717,7 +416,6 @@
             <div class="sv-team-photo">
               <img src="assets/img/photos/lawyer-5.webp" alt="Sofia Okonkwo, Partner Family Law" loading="lazy" width="900" height="1150" decoding="async">
               <div class="sv-team-photo-overlay"></div>
-              <span class="sv-team-exp">20+ yrs</span>
             </div>
             <div class="sv-team-body">
               <h3>Sofia Okonkwo</h3>
@@ -729,7 +427,6 @@
             <div class="sv-team-photo">
               <img src="assets/img/photos/lawyer-6.webp" alt="Marcus Chen, Senior Counsel Criminal Defense" loading="lazy" width="900" height="1150" decoding="async">
               <div class="sv-team-photo-overlay"></div>
-              <span class="sv-team-exp">27+ yrs</span>
             </div>
             <div class="sv-team-body">
               <h3>Marcus Chen</h3>
@@ -741,7 +438,6 @@
             <div class="sv-team-photo">
               <img src="assets/img/photos/lawyer-7.webp" alt="Isabelle Warren, Partner Employment Law" loading="lazy" width="900" height="1150" decoding="async">
               <div class="sv-team-photo-overlay"></div>
-              <span class="sv-team-exp">19+ yrs</span>
             </div>
             <div class="sv-team-body">
               <h3>Isabelle Warren</h3>
@@ -753,7 +449,6 @@
             <div class="sv-team-photo">
               <img src="assets/img/photos/lawyer-8.webp" alt="Nathan Adler, Partner Cyber Law" loading="lazy" width="900" height="1150" decoding="async">
               <div class="sv-team-photo-overlay"></div>
-              <span class="sv-team-exp">17+ yrs</span>
             </div>
             <div class="sv-team-body">
               <h3>Nathan Adler</h3>
@@ -766,172 +461,18 @@
     </section>
 
     <!-- ============ 7. SUCCESS STORIES / CASE RESULTS ============ -->
-    <section class="sv-section sv-cases" id="results" aria-labelledby="cases-heading">
+    <section class="sv-section jd-editorial" id="results" aria-labelledby="cases-heading">
       <div class="sv-container">
-        <div class="sv-section-head-simple" data-reveal="up">
-          <span class="sv-eyebrow">Success Stories</span>
-          <h2 id="cases-heading" class="sv-h2" style="margin-top:12px">Landmark <span class="sv-gold-text">Victories</span></h2>
-        </div>
-
-        <div class="sv-cases-grid stagger" data-reveal>
-          <!-- Case 1 -->
-          <article class="sv-case-card" id="case-1">
-            <a class="sv-case-visual" href="#contact" style="display:block">
-              <img src="assets/img/photos/case-handshake.webp" alt="Signing paperwork for a corporate transaction" loading="lazy" width="1600" height="1068" decoding="async">
-              <div class="sv-case-visual-overlay"></div>
-            </a>
-            <div class="sv-case-body">
-              <span class="sv-case-tag">Corporate M&amp;A — 2025</span>
-              <h3>$2.4M Acquisition</h3>
-              <p>Acquired a regional manufacturing business, coordinating the owner, bank and minority shareholders to a clean closing on schedule.</p>
-              <div class="sv-case-steps">
-                <div class="sv-case-step"><span class="k">Strategy</span><p>Single-track offer with every term pre-negotiated, consideration structured to neutralise the holdout.</p></div>
-                <div class="sv-case-step"><span class="k">Outcome</span><p>Closed two weeks early with 98% of terms intact and zero regulatory delay.</p></div>
-              </div>
-              <div class="sv-case-metrics">
-                <div><span class="sv-cm-num">$2.4M</span><span class="sv-cm-lbl">Deal Value</span></div>
-                <div><span class="sv-cm-num">1</span><span class="sv-cm-lbl">Jurisdiction</span></div>
-                <div><span class="sv-cm-num">98%</span><span class="sv-cm-lbl">Terms Kept</span></div>
-              </div>
-            </div>
-          </article>
-          <!-- Case 2 -->
-          <article class="sv-case-card" id="case-2">
-            <a class="sv-case-visual" href="#contact" style="display:block">
-              <img src="assets/img/photos/pa-courthouse.webp" alt="Courthouse with classical columns" loading="lazy" width="1024" height="1024" decoding="async">
-              <div class="sv-case-visual-overlay"></div>
-            </a>
-            <div class="sv-case-body">
-              <span class="sv-case-tag">Criminal Defense — 2024</span>
-              <h3>Full Acquittal in Fraud Trial</h3>
-              <p>A C-suite executive faced 14 charges of international fraud. Our cross-examination dismantled the prosecution's forensic case piece by piece.</p>
-              <div class="sv-case-steps">
-                <div class="sv-case-step"><span class="k">Strategy</span><p>Independent forensic audit that exposed flawed evidence handling.</p></div>
-                <div class="sv-case-step"><span class="k">Outcome</span><p>All 14 counts dismissed. Client fully vindicated.</p></div>
-              </div>
-              <div class="sv-case-metrics">
-                <div><span class="sv-cm-num">14/0</span><span class="sv-cm-lbl">Counts</span></div>
-                <div><span class="sv-cm-num">2y</span><span class="sv-cm-lbl">Trial</span></div>
-                <div><span class="sv-cm-num">100%</span><span class="sv-cm-lbl">Clearance</span></div>
-              </div>
-            </div>
-          </article>
-          <!-- Case 3 -->
-          <article class="sv-case-card" id="case-3">
-            <a class="sv-case-visual" href="#contact" style="display:block">
-              <img src="assets/img/photos/blog-estates.webp" alt="House model and keys representing an estate" loading="lazy" width="1600" height="1201" decoding="async">
-              <div class="sv-case-visual-overlay"></div>
-            </a>
-            <div class="sv-case-body">
-              <span class="sv-case-tag">Family &amp; Estates — 2024</span>
-              <h3>Protecting a $3.1M Legacy</h3>
-              <p>A founding family faced a hostile claim threatening a lifetime of savings. We restructured the estate and neutralised the dispute within months.</p>
-              <div class="sv-case-steps">
-                <div class="sv-case-step"><span class="k">Strategy</span><p>Mediated restructuring preserving privacy and family unity.</p></div>
-                <div class="sv-case-step"><span class="k">Outcome</span><p>100% of assets protected, zero publicity.</p></div>
-              </div>
-              <div class="sv-case-metrics">
-                <div><span class="sv-cm-num">$3.1M</span><span class="sv-cm-lbl">Protected</span></div>
-                <div><span class="sv-cm-num">2</span><span class="sv-cm-lbl">Generations</span></div>
-                <div><span class="sv-cm-num">0</span><span class="sv-cm-lbl">Exposure</span></div>
-              </div>
-            </div>
-          </article>
-          <!-- Case 4 -->
-          <article class="sv-case-card" id="case-4">
-            <a class="sv-case-visual" href="#contact" style="display:block">
-              <img src="assets/img/photos/pa-tax.webp" alt="Legal and tax documents on a desk" loading="lazy" width="1024" height="1024" decoding="async">
-              <div class="sv-case-visual-overlay"></div>
-            </a>
-            <div class="sv-case-body">
-              <span class="sv-case-tag">Tax Strategy — 2025</span>
-              <h3>Recovering $2.4M in Penalties</h3>
-              <p>A growing business faced retrospective tax penalties from a single audit. Our tax team overturned the assessments and recovered the full amount.</p>
-              <div class="sv-case-steps">
-                <div class="sv-case-step"><span class="k">Strategy</span><p>Multi-jurisdiction challenge built on treaty interpretation.</p></div>
-                <div class="sv-case-step"><span class="k">Outcome</span><p>$2.4M recovered, precedent set for similar clients.</p></div>
-              </div>
-              <div class="sv-case-metrics">
-                <div><span class="sv-cm-num">$2.4M</span><span class="sv-cm-lbl">Recovered</span></div>
-                <div><span class="sv-cm-num">3</span><span class="sv-cm-lbl">Regimes</span></div>
-                <div><span class="sv-cm-num">11mo</span><span class="sv-cm-lbl">Duration</span></div>
-              </div>
-            </div>
-          </article>
-          <!-- Case 5 -->
-          <article class="sv-case-card" id="case-5">
-            <a class="sv-case-visual" href="#contact" style="display:block">
-              <img src="assets/img/photos/blog-employment.webp" alt="Professional working on a laptop" loading="lazy" width="1600" height="1065" decoding="async">
-              <div class="sv-case-visual-overlay"></div>
-            </a>
-            <div class="sv-case-body">
-              <span class="sv-case-tag">Cyber Law — 2025</span>
-              <h3>Defending a Data Breach Lawsuit</h3>
-              <p>A Fortune 500 client faced class-action claims after a cyber-attack. We proved reasonable security posture and defeated certification.</p>
-              <div class="sv-case-steps">
-                <div class="sv-case-step"><span class="k">Strategy</span><p>Independent security audit and statutory compliance defence.</p></div>
-                <div class="sv-case-step"><span class="k">Outcome</span><p>Claims dismissed, precedent for the industry.</p></div>
-              </div>
-              <div class="sv-case-metrics">
-                <div><span class="sv-cm-num">Dismissed</span><span class="sv-cm-lbl">Class Action</span></div>
-                <div><span class="sv-cm-num">$0</span><span class="sv-cm-lbl">Liability</span></div>
-                <div><span class="sv-cm-num">9mo</span><span class="sv-cm-lbl">Duration</span></div>
-              </div>
-            </div>
-          </article>
+        <span class="sv-eyebrow">Illustrative scenarios</span>
+        <h2 class="sv-h2" id="cases-heading">Where legal counsel can help</h2>
+        <div class="jd-scenario-grid">
+          <article><h3>Preparing for a business sale</h3><p>Review deal terms, identify risks and prepare for due diligence before signing.</p><a class="jd-text-link" href="practice-corporate-law.html">Explore Corporate Law →</a></article>
+          <article><h3>Planning a family transition</h3><p>Understand the decisions ahead and prepare for a conversation about parenting or finances.</p><a class="jd-text-link" href="practice-family-law.html">Explore Family Law →</a></article>
         </div>
       </div>
     </section>
 
     <!-- ============ 8. TESTIMONIALS ============ -->
-    <section class="sv-section sv-testimonials" id="testimonials" aria-labelledby="testimonials-heading">
-      <div class="sv-container">
-        <div class="sv-section-head-simple center" data-reveal="scale">
-          <span class="sv-eyebrow">Client Testimonials</span>
-          <h2 id="testimonials-heading" class="sv-h2">Voices of <span class="sv-gold-text">Trust</span></h2>
-        </div>
-        <div class="sv-testi-grid stagger" data-reveal>
-          <figure class="sv-testi-card">
-            <div class="sv-testi-quote">&ldquo;</div>
-            <blockquote>What looked like an unwinnable corporate dispute became a decisive settlement. Justice Desk's strategic brilliance was matched only by their total discretion.</blockquote>
-                <figcaption>
-                  <span class="sv-testi-avatar">AR</span>
-                  <span class="sv-testi-info">
-                    <strong>Alexandra Reinhardt</strong>
-                    <span>CEO, Reinhardt Capital Group</span>
-                  </span>
-                  <span class="sv-testi-stars" aria-label="5 stars">★★★★★</span>
-                </figcaption>
-              </figure>
-
-          <figure class="sv-testi-card">
-                <div class="sv-testi-quote">&ldquo;</div>
-                <blockquote>At the highest-pressure moment of my career, their litigation team delivered a flawless defence. I never once doubted their counsel — and I was acquitted on all counts.</blockquote>
-                <figcaption>
-                  <span class="sv-testi-avatar">JM</span>
-                  <span class="sv-testi-info">
-                    <strong>James Millington</strong>
-                    <span>Former CFO, Meridian Energy</span>
-                  </span>
-                  <span class="sv-testi-stars" aria-label="5 stars">★★★★★</span>
-                </figcaption>
-              </figure>
-
-          <figure class="sv-testi-card">
-                <div class="sv-testi-quote">&ldquo;</div>
-                <blockquote>Discreet, brilliant and relentlessly effective. They protected our family's legacy through a matter of extraordinary complexity — delivering complete privacy and peace of mind.</blockquote>
-                <figcaption>
-                  <span class="sv-testi-avatar">SO</span>
-                  <span class="sv-testi-info">
-                    <strong>Sofia Okonkwo</strong>
-                    <span>Principal, Okonkwo Estates</span>
-                  </span>
-                  <span class="sv-testi-stars" aria-label="5 stars">★★★★★</span>
-                </figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
 
     <!-- ============ 9. LEGAL PROCESS TIMELINE ============ -->
     <section class="sv-section sv-process" id="process" aria-labelledby="process-heading">
@@ -981,57 +522,57 @@
         <div class="sv-accordion" data-reveal="up">
           <div class="sv-acc-item">
             <button class="sv-acc-btn" type="button" aria-expanded="false" id="faq-1-btn">
-              How do I schedule a consultation?
+              How does the consultation form work?
               <span class="sv-acc-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </span>
             </button>
             <div class="sv-acc-panel" aria-labelledby="faq-1-btn">
-              <div class="sv-acc-inner">Simply use the form, call or WhatsApp us and we'll arrange a private consultation with senior counsel — most are complimentary and we respond within 24 hours. Bring any documents, correspondence or contracts related to your matter; even a summary is enough to begin.</div>
+              <div class="sv-acc-inner">Choose a practice area and enter basic contact information to preview the intake flow. This demo does not schedule appointments.</div>
             </div>
           </div>
           <div class="sv-acc-item">
             <button class="sv-acc-btn" type="button" aria-expanded="false" id="faq-2-btn">
-              How are your fees structured?
+              What should I ask about fees?
               <span class="sv-acc-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </span>
             </button>
             <div class="sv-acc-panel" aria-labelledby="faq-2-btn">
-              <div class="sv-acc-inner">We offer fixed-fee, hourly and contingency arrangements depending on your matter, agreed in writing before any work begins — with no hidden charges, ever. Timelines vary; we'll give you a realistic estimate at our first consultation and keep you updated throughout.</div>
+              <div class="sv-acc-inner">Ask how the firm charges, what the initial work covers and when you can expect a written estimate.</div>
             </div>
           </div>
           <div class="sv-acc-item">
             <button class="sv-acc-btn" type="button" aria-expanded="false" id="faq-3-btn">
-              Do you handle international cases?
+              What if my matter involves another country?
               <span class="sv-acc-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </span>
             </button>
             <div class="sv-acc-panel" aria-labelledby="faq-3-btn">
-              <div class="sv-acc-inner">Yes. Through our alliance network spanning 24 countries, we manage cross-border litigation, international arbitration and global transactions with a single point of accountable counsel.</div>
+              <div class="sv-acc-inner">Mention the countries or jurisdictions involved so counsel can explain whether they can assist.</div>
             </div>
           </div>
           <div class="sv-acc-item">
             <button class="sv-acc-btn" type="button" aria-expanded="false" id="faq-4-btn">
-              How do you protect client confidentiality?
+              Should I send documents with the form?
               <span class="sv-acc-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </span>
             </button>
             <div class="sv-acc-panel" aria-labelledby="faq-4-btn">
-              <div class="sv-acc-inner">Client privilege is the cornerstone of our practice. We employ encrypted communication, secure case portals and strictly enforced confidentiality protocols across every matter.</div>
+              <div class="sv-acc-inner">Keep documents and sensitive details out of the initial form. Ask counsel how to share records securely.</div>
             </div>
           </div>
           <div class="sv-acc-item">
             <button class="sv-acc-btn" type="button" aria-expanded="false" id="faq-5-btn">
-              Which matters do you NOT take on?
+              What if my matter is urgent?
               <span class="sv-acc-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </span>
             </button>
             <div class="sv-acc-panel" aria-labelledby="faq-5-btn">
-              <div class="sv-acc-inner">We accept only matters where we are confident we can deliver — and where the fight is worth having. Where we cannot add value, we refer you to exceptional counsel who will.</div>
+              <div class="sv-acc-inner">If you have an upcoming deadline, contact a qualified lawyer directly. This demo cannot respond to urgent requests.</div>
             </div>
           </div>
         </div>
@@ -1039,55 +580,13 @@
     </section>
 
     <!-- ============ 11. LATEST INSIGHTS ============ -->
-    <section class="sv-section sv-blog" id="insights" aria-labelledby="blog-heading">
+    <section class="sv-section jd-editorial" id="insights" aria-labelledby="blog-heading">
       <div class="sv-container">
-        <div class="sv-section-head-simple" data-reveal="up">
-          <span class="sv-eyebrow">Legal Insights</span>
-          <h2 id="blog-heading" class="sv-h2" style="margin-top:12px">Latest From the <span class="sv-gold-text">Desk</span></h2>
-        </div>
-        <div class="sv-blog-grid stagger" data-reveal>
-          <a class="sv-blog-card" href="#contact">
-            <div class="sv-blog-visual">
-              <img src="assets/img/photos/blog-mergers.webp" alt="Cross-border merger advisory" loading="lazy" width="1600" height="1067" decoding="async">
-              <span class="sv-blog-tag">Corporate</span>
-            </div>
-            <div class="sv-blog-body">
-              <div class="sv-blog-meta"><span>May 24, 2026</span><span>7 min read</span></div>
-              <h3>Navigating Cross-Border Mergers in a Shifting Regulatory Landscape</h3>
-              <p>Key compliance checkpoints counsel routinely miss — and how to de-risk your next deal.</p>
-              <span class="sv-blog-more">Read Article
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
-            </div>
-          </a>
-          <a class="sv-blog-card" href="#contact">
-            <div class="sv-blog-visual">
-              <img src="assets/img/photos/scales.webp" alt="Statue of Lady Justice holding scales" loading="lazy" width="1600" height="1067" decoding="async">
-              <span class="sv-blog-tag">Litigation</span>
-            </div>
-            <div class="sv-blog-body">
-              <div class="sv-blog-meta"><span>May 12, 2026</span><span>8 min read</span></div>
-              <h3>The Art of the Opening Statement</h3>
-              <p>Inside the courtroom strategy that has won our most complex trials.</p>
-              <span class="sv-blog-more">Read Article
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
-            </div>
-          </a>
-          <a class="sv-blog-card" href="#contact">
-            <div class="sv-blog-visual">
-              <img src="assets/img/photos/blog-tax.webp" alt="International tax planning" loading="lazy" width="1600" height="1068" decoding="async">
-              <span class="sv-blog-tag">International Tax</span>
-            </div>
-            <div class="sv-blog-body">
-              <div class="sv-blog-meta"><span>Apr 28, 2026</span><span>6 min read</span></div>
-              <h3>Cross-Border Wealth Structuring in 2026</h3>
-              <p>From treaty relief to entity selection — the structures that weather global change.</p>
-              <span class="sv-blog-more">Read Article
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
-            </div>
-          </a>
+        <span class="sv-eyebrow">Before your consultation</span>
+        <h2 class="sv-h2" id="blog-heading">Prepare for the first conversation</h2>
+        <div class="jd-scenario-grid">
+          <article><h3>Write down your priorities</h3><p>List what you want to resolve, the deadlines you know about and the questions you want to ask.</p></article>
+          <article><h3>Make a list of relevant records</h3><p>Note which contracts, notices or court papers you have. Ask counsel how to share them securely.</p></article>
         </div>
       </div>
     </section>
@@ -1104,8 +603,8 @@
         <div class="sv-contact-grid">
           <!-- Form -->
           <div class="sv-form-card" data-reveal="left">
-            <span class="sv-eyebrow" style="margin-bottom:12px">Book a Free Consultation</span>
-            <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);margin:0 0 6px">Request Your Case Review</h3>
+            <span class="sv-eyebrow" style="margin-bottom:12px">Consultation preview</span>
+            <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);margin:0 0 6px">Request a Consultation</h3>
             <p style="font-size:.88rem;margin:0 0 26px;color:var(--text-muted)">Share only basic contact information. Keep case details and documents for a conversation with counsel.</p>
             <form id="consultation-form" method="post" data-endpoint="">
               <div class="sv-form-grid">
@@ -1140,96 +639,21 @@
             </form>
           </div>
 
-          <!-- Info -->
-          <div class="sv-contact-info" data-reveal="right">
-            <div class="sv-contact-row">
-              <span class="sv-contact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-              <div>
-                <h4>Global Headquarters</h4>
-                <p>450 Madison Avenue, Suite 2200<br>New York, NY 10022, United States</p>
-              </div>
-            </div>
-            <div class="sv-contact-row">
-              <span class="sv-contact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.85-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></span>
-              <div>
-                <h4>Call Us</h4>
-                <p>+1 (212) 555-0134<br><span class="muted">24/7 emergency line</span></p>
-              </div>
-            </div>
-            <div class="sv-contact-row">
-              <span class="sv-contact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></span>
-              <div>
-                <h4>Email</h4>
-                <p>counsel@justicedesk.com<br><span class="muted">replies within 24 hours</span></p>
-              </div>
-            </div>
-            <div class="sv-contact-row">
-              <span class="sv-contact-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
-              <div>
-                <h4>Office Hours</h4>
-                <p>Mon—Fri: 8:30am — 7:00pm<br><span class="muted">Sat: by appointment only</span></p>
-              </div>
-            </div>
-            <div class="sv-contact-actions">
-              <a href="#contact" class="sv-btn-ghost" style="justify-content:center">WhatsApp <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg></a>
-              <a href="tel:+12125550134" class="sv-btn-primary" style="justify-content:center">Call Now</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Offices gallery -->
-        <div class="sv-subhead" data-reveal="up">
-          <h3>Visit Our Offices</h3>
-          <span class="sv-subhead-line"></span>
-        </div>
-        <div class="sv-gallery-grid stagger" data-reveal>
-          <div class="sv-gallery-item">
-            <img src="assets/img/photos/office-interior.webp" alt="Luxury office on Madison Avenue" loading="lazy" width="1600" height="1068" decoding="async">
-            <span class="gcap">Luxury Office — Madison Avenue</span>
-          </div>
-          <div class="sv-gallery-item">
-            <img src="assets/img/photos/reception.webp" alt="Reception at Justice Desk" loading="lazy" width="1600" height="1068" decoding="async">
-            <span class="gcap">Reception</span>
-          </div>
-          <div class="sv-gallery-item">
-            <img src="assets/img/photos/meeting-room.webp" alt="Private meeting room" loading="lazy" width="1600" height="1067" decoding="async">
-            <span class="gcap">Meeting Rooms</span>
-          </div>
-        </div>
-
-        <!-- Map -->
-        <div class="sv-map-panel" data-reveal="zoom">
-          <iframe title="Google Map — Justice Desk headquarters, 450 Madison Avenue, New York" src="https://maps.google.com/maps?q=450%20Madison%20Avenue%2C%20New%20York%2C%20NY%2010022&amp;z=15&amp;output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <div class="sv-map-label">Justice Desk — New York</div>
+          <aside class="jd-intake-guide" aria-labelledby="intake-guide-heading">
+            <span class="sv-eyebrow">First conversation</span>
+            <h3 id="intake-guide-heading">What to have ready</h3>
+            <ul>
+              <li>A short summary of what you want to resolve</li>
+              <li>Any deadlines you already know about</li>
+              <li>The questions you want to ask counsel</li>
+            </ul>
+            <a class="jd-text-link" href="#faq">Read the consultation FAQs →</a>
+          </aside>
         </div>
       </div>
     </section>
 
     <!-- ============ FINAL CTA ============ -->
-    <section class="sv-section sv-cta-section" id="cta" aria-label="Contact call to action">
-      <div class="sv-container">
-        <div class="sv-cta-banner">
-          <div class="sv-cta-bg">
-            <img src="assets/img/photos/pa-criminal.webp" alt="" class="sv-cta-bg-photo" aria-hidden="true" width="1024" height="1024" loading="lazy" decoding="async">
-          </div>
-          <div class="sv-cta-content">
-            <span class="sv-eyebrow" data-reveal="fade">Protect Your Legal Rights</span>
-            <h2 data-reveal="blur">Your Legacy Deserves<br><span class="sv-gold-text">Brilliant Counsel</span></h2>
-            <p data-reveal="up" style="--reveal-delay:.1s">Speak with a senior partner about your matter. It's confidential — and it's free.</p>
-            <div class="sv-cta-actions" data-reveal="up" style="--reveal-delay:.2s">
-              <a href="#contact" class="sv-btn-primary sv-btn-lg" id="cta-consult-btn">
-                Speak with an Attorney Today
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
-              <a href="tel:+12125550134" class="sv-btn-glass sv-btn-lg" id="cta-phone-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.85-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
-                +1 (212) 555-0134
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
   </main>
   <a class="jd-mobile-consult" href="#contact">Consultation <span aria-hidden="true">↗</span></a>
@@ -1250,22 +674,8 @@
                 <span class="sv-logo-sub">Attorneys at Law</span>
               </span>
             </a>
-            <p>An international law firm delivering uncompromising counsel to leaders, innovators and institutions for over four decades.</p>
+            <p>A law firm website concept showcasing practice areas, attorney profiles and consultation intake.</p>
         <p class="footer-tagline">Justice. Integrity. Results.</p>
-            <div class="sv-socials">
-              <a class="sv-social-btn" href="#" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              </a>
-              <a class="sv-social-btn" href="#" aria-label="X">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231z"/></svg>
-              </a>
-              <a class="sv-social-btn" href="#" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              </a>
-              <a class="sv-social-btn" href="#" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23 12s0-3.3-.44-4.9a2.6 2.6 0 0 0-1.85-1.85C18.9 5 12 5 12 5s-6.9 0-8.71.25A2.6 2.6 0 0 0 1.44 7.1C1 8.7 1 12 1 12s0 3.3.44 4.9c.2.9.9 1.65 1.85 1.85C5.1 19 12 19 12 19s6.9 0 8.7-.25a2.6 2.6 0 0 0 1.85-1.85C23 15.3 23 12 23 12zM9.75 15.5v-7L15.5 12z"/></svg>
-              </a>
-            </div>
           </div>
           <!-- Quick Links -->
           <div class="sv-footer-col">
@@ -1273,7 +683,7 @@
             <ul>
               <li><a href="#about">About the Firm</a></li>
               <li><a href="#team">Our Lawyers</a></li>
-              <li><a href="#results">Case Results</a></li>
+              <li><a href="#results">Example Matters</a></li>
               <li><a href="#insights">Legal Insights</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1290,35 +700,17 @@
               <li><a href="#practice">Tax Law</a></li>
             </ul>
           </div>
-          <!-- Newsletter -->
-          <div class="sv-footer-col">
-            <h4>Stay Informed</h4>
-            <p>Receive authoritative legal briefings, once a month.</p>
-            <form class="sv-newsletter" data-form novalidate>
-              <label class="visually-hidden" for="footer-email">Email address</label>
-              <input id="footer-email" type="email" placeholder="Your email address" required class="sv-newsletter-input">
-              <button type="submit" class="sv-btn-primary sv-btn-sm">Join</button>
-            </form>
-          </div>
         </div>
       </div>
     </div>
     <div class="sv-footer-bottom">
       <div class="sv-container sv-footer-bottom-inner">
-        <p>&copy; <span data-year>2026</span> Justice Desk. All rights reserved. Attorney Advertising.</p>
-        <div class="sv-footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
-          <a href="#">Cookie Policy</a>
-        </div>
+        <p>&copy; <span data-year>2026</span> Justice Desk · Law firm website demo</p>
       </div>
     </div>
   </footer>
 
   <!-- Floating actions -->
-  <a class="sv-whatsapp" href="https://wa.me/12125550134" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-  </a>
   <button class="sv-to-top" type="button" aria-label="Back to top" id="back-to-top-btn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
