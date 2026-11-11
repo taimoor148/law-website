@@ -71,77 +71,6 @@
   };
 
   /* ----------------------------------------------------------
-     CUSTOM CURSOR + GOLD GLOW + SPOTLIGHT
-     ---------------------------------------------------------- */
-  const cursor = {
-    init() {
-      if (isTouch || prefersReduced) return;
-      const dot = document.createElement("div");
-      dot.className = "cursor-dot";
-      const ring = document.createElement("div");
-      ring.className = "cursor-ring";
-      const glow = document.createElement("div");
-      glow.className = "cursor-glow";
-      document.body.appendChild(dot);
-      document.body.appendChild(ring);
-      document.body.appendChild(glow);
-      document.body.classList.add("cursor-glow-on");
-
-      let mx = innerWidth / 2, my = innerHeight / 2;
-      let rx = mx, ry = my;
-      let gx = mx, gy = my;
-      let dotS = 1, ringS = 1;
-
-      const t3 = (x, y, s) => `translate3d(${x}px, ${y}px, 0) translate(-50%,-50%) scale(${s})`;
-
-      const track = (e) => {
-        mx = e.clientX; my = e.clientY;
-      };
-      window.addEventListener("mousemove", track, { passive: true });
-
-      let lastTime = 0;
-      const loop = (now) => {
-        const dt = now - lastTime;
-        lastTime = now;
-        const f = dt ? Math.min(1, dt / 16.6) : 1;
-        const ringF = f * 0.9;
-        const glowF = f * 0.78;
-        rx += (mx - rx) * ringF;
-        ry += (my - ry) * ringF;
-        gx += (mx - gx) * glowF;
-        gy += (my - gy) * glowF;
-        dot.style.transform = t3(mx, my, dotS);
-        ring.style.transform = t3(rx, ry, ringS);
-        glow.style.transform = t3(gx, gy, 1);
-        doc.style.setProperty("--mx", mx + "px");
-        doc.style.setProperty("--my", my + "px");
-        requestAnimationFrame(loop);
-      };
-      requestAnimationFrame(loop);
-
-      const actives = "a, button, [role=button], .tilt, input, textarea, select, .carousel-dot";
-      document.addEventListener("mouseover", (e) => {
-        if (e.target.closest(actives)) {
-          dot.classList.add("is-active");
-          ring.classList.add("is-active");
-          dotS = 0.5;
-          ringS = 1.2;
-        }
-      });
-      document.addEventListener("mouseout", (e) => {
-        if (e.target.closest(actives)) {
-          dot.classList.remove("is-active");
-          ring.classList.remove("is-active");
-          dotS = 1;
-          ringS = 1;
-        }
-      });
-      document.addEventListener("mousedown", () => ringS = 0.82);
-      document.addEventListener("mouseup", () => ringS = 1);
-    },
-  };
-
-  /* ----------------------------------------------------------
      NAVIGATION
      ---------------------------------------------------------- */
   const nav = {
@@ -520,7 +449,7 @@
       if (toTop) {
         const onScroll = () => toTop.classList.toggle("show", scrollY > 700);
         window.addEventListener("scroll", onScroll, { passive: true });
-        toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "instant" }));
       }
     },
   };
@@ -577,7 +506,7 @@
      ---------------------------------------------------------- */
   const particles = {
     init() {
-      if (prefersReduced) return;
+      if (prefersReduced || isTouch) return;
       const hosts = document.querySelectorAll("[data-particles]");
       if (!hosts.length) return;
       hosts.forEach((host) => {
@@ -586,7 +515,7 @@
         host.appendChild(canvas);
         const ctx = canvas.getContext("2d");
         let w, h, parts = [], raf = null;
-        const DPR = Math.min(window.devicePixelRatio || 1, 2);
+        const DPR = 1;
 
         const isMobile = window.innerWidth < 768;
         const resize = () => {
@@ -627,17 +556,22 @@
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(229, 199, 110, ${alpha.toFixed(3)})`;
-            ctx.shadowColor = "rgba(217,178,76,.8)";
-            ctx.shadowBlur = isMobile ? 0 : 8;
             ctx.fill();
-            ctx.shadowBlur = 0;
           });
           raf = requestAnimationFrame(draw);
         };
 
         resize();
         window.addEventListener("resize", resize, { passive: true });
-        draw();
+        const visibility = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting && raf === null) {
+            raf = requestAnimationFrame(draw);
+          } else if (!entry.isIntersecting && raf !== null) {
+            cancelAnimationFrame(raf);
+            raf = null;
+          }
+        });
+        visibility.observe(host);
       });
     },
   };
@@ -787,7 +721,6 @@
     floats.init();
     footerYear.init();
     transitions.init();
-    cursor.init();
     particles.init();
     hero3d.init();
     interact.ripples();

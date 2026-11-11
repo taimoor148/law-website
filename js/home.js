@@ -39,7 +39,7 @@
     });
   }
 
-  /* ── Smooth scroll for one-page anchors ── */
+  /* ── Jump to one-page anchors ── */
   const NAV_HEIGHT = 76;
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
@@ -49,7 +49,7 @@
       if (!target) return;
       e.preventDefault();
       const y = target.getBoundingClientRect().top + window.scrollY - NAV_HEIGHT;
-      window.scrollTo({ top: Math.max(y, 0), behavior: 'smooth' });
+      window.scrollTo({ top: Math.max(y, 0), behavior: 'instant' });
     });
   });
 
@@ -104,7 +104,7 @@
     }, { passive: true });
 
     toTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'instant' });
     });
   }
 
