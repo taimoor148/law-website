@@ -42,6 +42,41 @@
     "priceRange": "$$$"
   }
   </script>
+  <style>
+    .hx-hero { isolation: isolate; overflow: hidden; min-height: 100svh; align-items: stretch; background: #12100d; }
+    .jd-hero-photo { position: absolute; z-index: -2; inset: 0 0 0 35%; }
+    .jd-hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 57% 38%; }
+    .hx-hero::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,#12100d 20%,#12100deb 39%,#12100d30 75%),linear-gradient(0deg,#12100d 0%,transparent 24%); pointer-events: none; }
+    .jd-hero-content { width: min(100%, 1320px); margin-inline: auto; padding: 110px clamp(24px, 6vw, 90px) 70px; color: #fff8ec; animation: jd-appear .35s ease-out both; }
+    .jd-hero-kicker { color: #ead195; text-transform: uppercase; letter-spacing: .15em; font-size: .78rem; }
+    .jd-hero-content h1 { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 7.3rem); line-height: .98; letter-spacing: -.045em; margin: 20px 0; color: inherit; }
+    .jd-hero-content em { color: #efd397; }
+    .jd-hero-summary { max-width: 34ch; color: #f1e6d3; font-size: clamp(1rem, 1.35vw, 1.2rem); margin: 0 0 28px; }
+    .jd-hero-content .hx-btn { width: fit-content; animation: none; }
+    .jd-feature.pa2-card { grid-column: span 1; min-height: 300px; justify-content: end; background: linear-gradient(0deg,#16120ff5 7%,#16120f50 100%),var(--jd-photo) center 45% / cover; color: #fff5e8; }
+    .jd-feature .pa2-title,.jd-feature .pa2-desc { color: #fff5e8; }
+    .jd-feature .pa2-link { color: #f4d99c; }
+    .pa2-card .pa2-idx { display: none; }
+    .sv-team-photo img { object-position: center 32%; }
+    .jd-form-submit { width: 100%; justify-content: center; margin-top: 8px; }
+    .jd-form-status { min-height: 1.5em; margin: 12px 0; color: var(--text-muted); }
+    .jd-mobile-consult { display: none; }
+    @keyframes jd-appear { from { opacity: .55; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @media (min-width: 1081px) {
+      .pa2-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .jd-feature.pa2-card { grid-column: span 2; }
+    }
+    @media (max-width: 700px) {
+      .hx-hero { min-height: 90svh; justify-content: end; }
+      .jd-hero-photo { inset: 0; }
+      .jd-hero-photo img { object-position: 54% 25%; }
+      .hx-hero::after { background: linear-gradient(0deg,#12100d 5%,#12100de8 29%,#12100d32 75%,#12100d80); }
+      .jd-hero-content { padding: 100px 24px 76px; }
+      .jd-mobile-consult { position: fixed; z-index: 12; bottom: max(14px, env(safe-area-inset-bottom)); left: 16px; display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 9px 14px; background: #efd397; color: #21190e; font-weight: 700; font-size: .85rem; }
+      .jd-mobile-consult[hidden], body:has(.sv-mobile-menu.open) .jd-mobile-consult { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { .jd-hero-content { animation: none; } }
+  </style>
 </head>
 <body class="grain">
 
@@ -107,125 +142,17 @@
     <!-- ============ 1. CINEMATIC HERO ============ -->
     <section class="sv-hero hx-hero" id="top" aria-label="Hero">
       <!-- Ambient background (mesh gradient, gold glow, pattern, blobs, vignette) -->
-      <div class="hx-bg" aria-hidden="true">
-        <div class="hx-mesh"></div>
-        <div class="hx-glow hx-glow--one"></div>
-        <div class="hx-glow hx-glow--two"></div>
-        <div class="hx-blob hx-blob--one"></div>
-        <div class="hx-blob hx-blob--two"></div>
-        <div class="hx-pattern"></div>
-        <div class="hx-vignette"></div>
-      </div>
-      <!-- Soft gold particles (host for the existing canvas engine) -->
-      <div class="hx-particles" data-particles aria-hidden="true"></div>
-
-      <!-- Two-column inner -->
-      <div class="hx-inner">
-        <!-- ========== LEFT : Copy ========== -->
-        <div class="hx-left">
-          <!-- Premium badge -->
-          <p class="hx-badge" data-reveal="fade">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22V8M5 12H2a10 10 0 0 0 20 0h-3"/><path d="M12 8c0-2.2-1.8-4-4-4S4 5.8 4 8"/><path d="M12 8c0-2.2 1.8-4 4-4s4 1.8 4 4"/></svg>
-            Trusted Legal Experts
-          </p>
-
-          <!-- Headline -->
-          <h1 class="sv-hero-title hx-title" data-hero-title>
-            <span class="mask-line"><span>Justice That Protects</span></span>
-            <span class="mask-line"><span><em class="sv-gold-italic">What Matters</em></span></span>
-            <span class="mask-line"><span><em class="sv-gold-italic">Most.</em></span></span>
-          </h1>
-
-          <!-- Description -->
-          <p class="hx-lead" data-reveal="up" style="--reveal-delay:.2s">
-            Trusted by 500+ clients and backed by a 98% success rate, Justice
-            Desk is the law firm leaders turn to when the stakes are highest.
-            Our attorneys combine strategic precision, absolute discretion and
-            an unwavering record of results.
-          </p>
-
-          <!-- CTA Buttons -->
-          <div class="hx-actions" data-reveal="up" style="--reveal-delay:.35s">
-            <a href="#contact" class="hx-btn hx-btn--gold">
-              Book a Free Consultation
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="15" height="15"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="#practice" class="hx-btn hx-btn--glass">
-              Explore Practice Areas
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="15" height="15"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <!-- Trust indicators -->
-          <div class="hx-trust" data-reveal="up" style="--reveal-delay:.5s">
-            <div class="hx-trust-item hx-trust-item--rating">
-              <span class="hx-trust-stars" aria-hidden="true">★★★★★</span>
-              <span class="hx-trust-num">4.9<span class="hx-trust-sub">/5</span></span>
-              <span class="hx-trust-lbl">Client Rating</span>
-            </div>
-            <div class="hx-trust-item">
-              <span class="hx-trust-num"><span data-count="500">0</span><span class="hx-trust-sub">+</span></span>
-              <span class="hx-trust-lbl">Clients</span>
-            </div>
-            <div class="hx-trust-item">
-              <span class="hx-trust-num"><span data-count="98">0</span><span class="hx-trust-sub">%</span></span>
-              <span class="hx-trust-lbl">Success Rate</span>
-            </div>
-            <div class="hx-trust-item">
-              <span class="hx-trust-num"><span data-count="20">0</span><span class="hx-trust-sub">+</span></span>
-              <span class="hx-trust-lbl">Years Experience</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- ========== RIGHT = Visual composition ========== -->
-        <div class="hx-right">
-          <div class="hx-visual" data-parallax="0.15">
-            <!-- rotating gold orbit ring -->
-            <div class="hx-ring hx-ring--outer" aria-hidden="true"></div>
-            <div class="hx-ring hx-ring--inner" aria-hidden="true"></div>
-
-            <!-- main legal office photo -->
-            <figure class="hx-photo">
-              <img src="assets/img/photos/hero-main.webp"
-                   srcset="assets/img/photos/hero-main-640.webp 640w, assets/img/photos/hero-main.webp 1024w"
-                   sizes="(max-width: 700px) 90vw, (max-width: 1200px) 48vw, 560px"
-                   alt="Attorney standing in a law library" fetchpriority="high" width="1024" height="1024">
-            </figure>
-
-            <!-- brand watermark -->
-            <span class="hx-watermark" aria-hidden="true">JUSTICE DESK</span>
-
-            <!-- floating glass card: rating -->
-            <div class="hx-card hx-card--rating">
-              <span class="hx-card-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2l2.9 6.26L21.5 9.3l-4.75 4.4 1.12 6.55L12 17.35 6.13 20.25l1.12-6.55L2.5 9.3l6.6-1.04z"/></svg>
-              </span>
-              <div class="hx-card-meta">
-                <strong>4.9 / 5</strong>
-                <span>500+ Client Reviews</span>
-              </div>
-            </div>
-
-            <!-- floating glass card: success rate -->
-            <div class="hx-card hx-card--success">
-              <span class="hx-card-value"><span data-count="98">0</span>%</span>
-              <div class="hx-card-meta">
-                <strong>Case Success</strong>
-                <span>Across all practice groups</span>
-              </div>
-            </div>
-
-            <!-- floating portrait: young lawyer -->
-            <figure class="hx-card hx-card--portrait">
-              <img src="assets/img/photos/lawyer-1-thumb.webp" alt="" decoding="async" width="224" height="286">
-              <figcaption>
-                <strong>Eleanor Sterling</strong>
-                <span>Founding Partner</span>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
+      <picture class="jd-hero-photo">
+        <img src="assets/img/photos/hero-main.webp"
+             srcset="assets/img/photos/hero-main-640.webp 640w, assets/img/photos/hero-main.webp 1024w"
+             sizes="(max-width: 700px) 100vw, 65vw" width="1024" height="1024"
+             fetchpriority="high" alt="">
+      </picture>
+      <div class="jd-hero-content">
+        <p class="jd-hero-kicker">Justice Desk · New York</p>
+        <h1>Clear counsel.<br><em>Decisive action.</em></h1>
+        <p class="jd-hero-summary">Legal counsel for businesses, individuals and families facing consequential decisions.</p>
+        <a href="#contact" class="hx-btn hx-btn--gold">Request a Consultation <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -587,8 +514,7 @@
 
         <!-- Premium glass cards grid -->
         <div class="pa2-grid stagger" data-reveal>
-          <!-- 01 Corporate Law -->
-          <a class="pa2-card" href="practice-corporate-law.html" style="--i:0">
+          <a class="pa2-card jd-feature jd-feature--corporate" style="--jd-photo:url(assets/img/photos/pa-corporate.webp)" href="practice-corporate-law.html">
             <span class="pa2-idx">01</span>
             <span class="pa2-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg>
@@ -599,32 +525,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
-          <!-- 02 Criminal Defense -->
-          <a class="pa2-card" href="#contact" style="--i:1">
-            <span class="pa2-idx">02</span>
-            <span class="pa2-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-            </span>
-            <h3 class="pa2-title">Criminal Defense</h3>
-            <p class="pa2-desc">For individuals under investigation — white-collar and fraud defense defended with forensic rigour and fierce advocacy.</p>
-            <span class="pa2-link">Learn More
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </a>
-          <!-- 03 Civil Litigation -->
-          <a class="pa2-card" href="#contact" style="--i:2">
-            <span class="pa2-idx">03</span>
-            <span class="pa2-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M5 12H2a10 10 0 0 0 20 0h-3"/><path d="M6 3l6-2 6 2-6 5z"/></svg>
-            </span>
-            <h3 class="pa2-title">Civil Litigation</h3>
-            <p class="pa2-desc">For companies and individuals — commercial disputes, contract claims and arbitration pursued with precision and urgency.</p>
-            <span class="pa2-link">Learn More
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </span>
-          </a>
-          <!-- 04 Family Law -->
-          <a class="pa2-card" href="practice-family-law.html" style="--i:3">
+          <a class="pa2-card jd-feature jd-feature--family" style="--jd-photo:url(assets/img/photos/blog-estates.webp)" href="practice-family-law.html">
             <span class="pa2-idx">04</span>
             <span class="pa2-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -635,75 +536,103 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
+          <!-- 01 Corporate Law -->
+
+          <!-- 02 Criminal Defense -->
+          <a class="pa2-card" href="#contact" data-consult-area="Criminal Defense" style="--i:1">
+            <span class="pa2-idx">02</span>
+            <span class="pa2-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <h3 class="pa2-title">Criminal Defense</h3>
+            <p class="pa2-desc">For individuals under investigation — white-collar and fraud defense defended with forensic rigour and fierce advocacy.</p>
+            <span class="pa2-link">Ask about this service
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+          <!-- 03 Civil Litigation -->
+          <a class="pa2-card" href="#contact" data-consult-area="Civil Litigation" style="--i:2">
+            <span class="pa2-idx">03</span>
+            <span class="pa2-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M5 12H2a10 10 0 0 0 20 0h-3"/><path d="M6 3l6-2 6 2-6 5z"/></svg>
+            </span>
+            <h3 class="pa2-title">Civil Litigation</h3>
+            <p class="pa2-desc">For companies and individuals — commercial disputes, contract claims and arbitration pursued with precision and urgency.</p>
+            <span class="pa2-link">Ask about this service
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </a>
+          <!-- 04 Family Law -->
+
           <!-- 05 Real Estate Law -->
-          <a class="pa2-card" href="#contact" style="--i:4">
+          <a class="pa2-card" href="#contact" data-consult-area="Real Estate Law" style="--i:4">
             <span class="pa2-idx">05</span>
             <span class="pa2-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-8 9 8"/><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10"/><path d="M10 21v-6h4v6"/></svg>
             </span>
             <h3 class="pa2-title">Real Estate Law</h3>
             <p class="pa2-desc">For developers, investors and owners — transactions, leasing and disputes closed cleanly with your assets secure.</p>
-            <span class="pa2-link">Learn More
+            <span class="pa2-link">Ask about this service
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
           <!-- 06 Immigration Law -->
-          <a class="pa2-card" href="#contact" style="--i:5">
+          <a class="pa2-card" href="#contact" data-consult-area="Immigration Law" style="--i:5">
             <span class="pa2-idx">06</span>
             <span class="pa2-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </span>
             <h3 class="pa2-title">Immigration Law</h3>
             <p class="pa2-desc">For executives, founders and investors — visas, relocation and citizenship secured through proven procedures.</p>
-            <span class="pa2-link">Learn More
+            <span class="pa2-link">Ask about this service
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
           <!-- 07 Employment Law -->
-          <a class="pa2-card" href="#contact" style="--i:6">
+          <a class="pa2-card" href="#contact" data-consult-area="Employment Law" style="--i:6">
             <span class="pa2-idx">07</span>
             <span class="pa2-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M9 12h6M9 16h4"/></svg>
             </span>
             <h3 class="pa2-title">Employment Law</h3>
             <p class="pa2-desc">For executives and employers — contracts, disputes and compliance managed to protect careers and workplace culture.</p>
-            <span class="pa2-link">Learn More
+            <span class="pa2-link">Ask about this service
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
           <!-- 08 Tax Law -->
-          <a class="pa2-card" href="#contact" style="--i:7">
+          <a class="pa2-card" href="#contact" data-consult-area="Tax Law" style="--i:7">
             <span class="pa2-idx">08</span>
             <span class="pa2-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 4l-6 16"/><circle cx="8" cy="7" r="2.4"/><circle cx="16" cy="17" r="2.4"/></svg>
             </span>
             <h3 class="pa2-title">Tax Law</h3>
             <p class="pa2-desc">For corporations and families — international tax planning, transfer pricing and dispute resolution that preserves wealth.</p>
-            <span class="pa2-link">Learn More
+            <span class="pa2-link">Ask about this service
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
           <!-- 09 Cyber Law -->
-          <a class="pa2-card" href="#contact" style="--i:8">
+          <a class="pa2-card" href="#contact" data-consult-area="Cyber Law" style="--i:8">
             <span class="pa2-idx">09</span>
             <span class="pa2-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M12 9V7M12 15v2"/></svg>
             </span>
             <h3 class="pa2-title">Cyber Law</h3>
             <p class="pa2-desc">For modern businesses — data privacy, cybersecurity, AI governance and digital assets defended against every threat.</p>
-            <span class="pa2-link">Learn More
+            <span class="pa2-link">Ask about this service
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
           <!-- 10 Constitutional Law -->
-          <a class="pa2-card" href="#contact" style="--i:9">
+          <a class="pa2-card" href="#contact" data-consult-area="Constitutional Law" style="--i:9">
             <span class="pa2-idx">10</span>
             <span class="pa2-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3h10v4H7zM9 7v6a3 3 0 0 0 6 0V7"/><path d="M12 21v-5"/></svg>
             </span>
             <h3 class="pa2-title">Constitutional Law</h3>
             <p class="pa2-desc">For individuals and institutions — public law and constitutional rights advanced with authority and respect.</p>
-            <span class="pa2-link">Learn More
+            <span class="pa2-link">Ask about this service
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </span>
           </a>
@@ -746,10 +675,6 @@
               <h3>Eleanor Sterling</h3>
               <span class="sv-team-role">Founding Partner — Corporate</span>
               <p>38 years guiding boards through high-stakes disputes; recognised Band 1 by Chambers for a decade, with landmark corporate wins to her name.</p>
-              <div class="sv-team-social">
-                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A5.5 5.5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
-              </div>
             </div>
           </div>
           <div class="sv-team-card">
@@ -762,10 +687,6 @@
               <h3>David Vale</h3>
               <span class="sv-team-role">Managing Partner — Litigation</span>
               <p>32 years leading M&amp;A and commercial disputes, having closed over $500M in transactions for mid-market and enterprise clients.</p>
-              <div class="sv-team-social">
-                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A5.5 5.5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
-              </div>
             </div>
           </div>
           <div class="sv-team-card">
@@ -778,10 +699,6 @@
               <h3>Amelia Rossi</h3>
               <span class="sv-team-role">Partner — Corporate M&amp;A</span>
               <p>Harvard-educated deal architect behind $2.4M+ acquisitions and the governance frameworks that sustain them.</p>
-              <div class="sv-team-social">
-                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A5.5 5.5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
-              </div>
             </div>
           </div>
           <div class="sv-team-card">
@@ -794,10 +711,6 @@
               <h3>Étienne Laurent</h3>
               <span class="sv-team-role">Partner — International Tax</span>
               <p>22 years preserving wealth across 20+ jurisdictions; has recovered more than $5M for clients in tax dispute resolution.</p>
-              <div class="sv-team-social">
-                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A5.5 5.5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
-              </div>
             </div>
           </div>
           <div class="sv-team-card">
@@ -810,10 +723,6 @@
               <h3>Sofia Okonkwo</h3>
               <span class="sv-team-role">Partner — Family Law</span>
               <p>20 years of discreet, decisive counsel to high-value families — listed in The Legal 500 for her work protecting legacies.</p>
-              <div class="sv-team-social">
-                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A5.5 5.5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
-              </div>
             </div>
           </div>
           <div class="sv-team-card">
@@ -826,10 +735,6 @@
               <h3>Marcus Chen</h3>
               <span class="sv-team-role">Senior Counsel — Criminal</span>
               <p>27 years of commanding courtroom advocacy, securing full acquittals in the country's most complex white-collar trials.</p>
-              <div class="sv-team-social">
-                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A5.5 5.5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
-              </div>
             </div>
           </div>
           <div class="sv-team-card">
@@ -842,10 +747,6 @@
               <h3>Isabelle Warren</h3>
               <span class="sv-team-role">Partner — Employment</span>
               <p>19 years advising executives and employers, having resolved 300+ disputes and negotiated multiple executive severance packages.</p>
-              <div class="sv-team-social">
-                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A5.5 5.5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
-              </div>
             </div>
           </div>
           <div class="sv-team-card">
@@ -858,10 +759,6 @@
               <h3>Nathan Adler</h3>
               <span class="sv-team-role">Partner — Cyber Law</span>
               <p>17 years at the frontier of data privacy, AI and digital assets; led key cyber-defense wins for Fortune 500 clients.</p>
-              <div class="sv-team-social">
-                <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A5.5 5.5 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-                <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg></a>
-              </div>
             </div>
           </div>
         </div>
@@ -1201,7 +1098,7 @@
         <div class="sv-section-head-simple center" data-reveal="up">
           <span class="sv-eyebrow">Contact</span>
           <h2 id="contact-heading" class="sv-h2">Speak With <span class="sv-gold-text">Counsel</span></h2>
-          <p class="sv-lead" data-reveal="up" style="--reveal-delay:.1s">Protect your legal rights today. Tell us about your matter in confidence — a senior partner responds within 24 hours.</p>
+          <p class="sv-lead" data-reveal="up" style="--reveal-delay:.1s">Choose the practice area that best fits your enquiry.</p>
         </div>
 
         <div class="sv-contact-grid">
@@ -1209,31 +1106,26 @@
           <div class="sv-form-card" data-reveal="left">
             <span class="sv-eyebrow" style="margin-bottom:12px">Book a Free Consultation</span>
             <h3 style="font-family:var(--font-display);font-size:1.3rem;color:var(--text);margin:0 0 6px">Request Your Case Review</h3>
-            <p style="font-size:.88rem;margin:0 0 26px;color:var(--text-muted)">Every enquiry is protected by strict attorney-client privilege. A senior partner reviews your matter personally and responds within 24 hours.</p>
-            <form data-form novalidate>
+            <p style="font-size:.88rem;margin:0 0 26px;color:var(--text-muted)">Share only basic contact information. Keep case details and documents for a conversation with counsel.</p>
+            <form id="consultation-form" method="post" data-endpoint="">
               <div class="sv-form-grid">
                 <div class="sv-form-field">
-                  <label class="sv-form-label" for="c-name">Full Name</label>
-                  <input class="sv-form-input" id="c-name" type="text" placeholder="Your full name" required>
-                  <span class="sv-form-error">Please enter your name.</span>
+                  <label class="sv-form-label" for="c-name">Full name</label>
+                  <input class="sv-form-input" id="c-name" name="name" autocomplete="name" maxlength="100" required>
                 </div>
                 <div class="sv-form-field">
-                  <label class="sv-form-label" for="c-email">Email Address</label>
-                  <input class="sv-form-input" id="c-email" type="email" placeholder="you@example.com" required>
-                  <span class="sv-form-error">Please enter a valid email.</span>
+                  <label class="sv-form-label" for="c-email">Email address</label>
+                  <input class="sv-form-input" id="c-email" name="email" type="email" autocomplete="email" maxlength="254" required>
                 </div>
-                <div class="sv-form-field">
-                  <label class="sv-form-label" for="c-phone">Phone</label>
-                  <input class="sv-form-input" id="c-phone" type="tel" placeholder="+1 (555) 000-0000">
-                </div>
-                <div class="sv-form-field">
-                  <label class="sv-form-label" for="c-area">Practice Area</label>
-                  <select class="sv-form-select" id="c-area">
+                <div class="sv-form-field full">
+                  <label class="sv-form-label" for="c-area">Practice area</label>
+                  <select class="sv-form-select" id="c-area" name="practiceArea" required>
+                    <option value="">Select a practice area</option>
                     <option>Corporate Law</option>
                     <option>Civil Litigation</option>
                     <option>Criminal Defense</option>
                     <option>Family Law</option>
-                    <option>Property Law</option>
+                    <option>Real Estate Law</option>
                     <option>Tax Law</option>
                     <option>Immigration Law</option>
                     <option>Cyber Law</option>
@@ -1242,20 +1134,9 @@
                     <option>Other / Unsure</option>
                   </select>
                 </div>
-                <div class="sv-form-field full">
-                  <label class="sv-form-label" for="c-msg">Your Message</label>
-                  <textarea class="sv-form-textarea" id="c-msg" placeholder="Briefly describe your matter..." required></textarea>
-                  <span class="sv-form-error">Please describe your matter.</span>
-                </div>
               </div>
-              <div class="sv-form-success" role="status">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22" style="flex-shrink:0"><path d="M20 6L9 17l-5-5"/></svg>
-                Thank you. A senior partner will contact you within 24 hours.
-              </div>
-              <button class="sv-btn-primary sv-btn-lg" type="submit" style="width:100%;justify-content:center;margin-top:6px">
-                Request Legal Advice
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </button>
+              <p class="jd-form-status" id="consultation-status" role="status">Demo form. Live delivery is currently unavailable.</p>
+              <button class="sv-btn-primary sv-btn-lg jd-form-submit" type="submit" disabled>Preview request</button>
             </form>
           </div>
 
@@ -1351,6 +1232,7 @@
     </section>
 
   </main>
+  <a class="jd-mobile-consult" href="#contact">Consultation <span aria-hidden="true">↗</span></a>
 
   <!-- ============ 13. FOOTER ============ -->
   <footer class="sv-footer" role="contentinfo">
@@ -1443,5 +1325,53 @@
 
   <script src="js/main.js" defer></script>
   <script src="js/home.js" defer></script>
+  <script>
+    (() => {
+      const form = document.getElementById('consultation-form');
+      const status = document.getElementById('consultation-status');
+      const button = form.querySelector('button[type="submit"]');
+      const area = form.elements.practiceArea;
+      const endpoint = form.dataset.endpoint;
+      button.disabled = false;
+      if (endpoint) {
+        button.textContent = 'Send consultation request';
+        status.textContent = '';
+      }
+
+      document.querySelectorAll('[data-consult-area]').forEach(link => {
+        link.addEventListener('click', () => { area.value = link.dataset.consultArea; });
+      });
+
+      const shortcut = document.querySelector('.jd-mobile-consult');
+      const contact = document.getElementById('contact');
+      new IntersectionObserver(([entry]) => {
+        shortcut.hidden = entry.isIntersecting;
+      }).observe(contact);
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!endpoint) {
+          status.textContent = 'Preview complete. Your request was not sent.';
+          return;
+        }
+        button.disabled = true;
+        status.textContent = 'Sending your request…';
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(new FormData(form)))
+          });
+          if (!response.ok) throw new Error('Request failed');
+          form.reset();
+          status.textContent = 'Your consultation request was received.';
+        } catch {
+          status.textContent = 'Your request could not be sent. Please try again.';
+        } finally {
+          button.disabled = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
